@@ -61,7 +61,7 @@ public class CameraController2D : MonoBehaviour
 
     public float CalculateLookForward()
     {
-        return player.GetComponent<PlayerController>().GetMoveInput() * lookOffset;
+        return player.GetComponent<BasePlayerController>().GetMoveInput() * lookOffset;
     }
 
     void ClampToBoundary()

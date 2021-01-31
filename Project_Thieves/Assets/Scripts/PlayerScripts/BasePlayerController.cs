@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class BasePlayerController : MonoBehaviour
 {
     //Player Controls
     private PlayerInputControls inputActions;
@@ -28,8 +28,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask levelLayer;
 
     //Jump Variables
-    public float jumpSpeed;
-    public float jumpTime, jumpTimeMax;
+    private float jumpSpeed;
+    private float jumpTime, jumpTimeMax;
     
     //Coyote Time variables
     private bool isCoyoteTime;
@@ -288,6 +288,7 @@ public class PlayerController : MonoBehaviour
         {
             if (sharp == true)
             {
+                rb.velocity = new Vector2(rb.velocity.x, 0f);
                 UpdateMoveState(EMovement.FALLING);
             }
 
@@ -320,5 +321,11 @@ public class PlayerController : MonoBehaviour
 
         //Stop Buffer Time
         jumpBuffer = false;
+    }
+
+    // GET FUNCTIONS //
+    public PlayerInputControls GetInputActions()
+    {
+        return inputActions;
     }
 }

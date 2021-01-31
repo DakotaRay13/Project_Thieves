@@ -33,6 +33,30 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""LightAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""22010ddc-f903-44c8-89b3-621d5827e6d6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""HeavyAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""ccda6e42-0385-4eab-b2d9-d43fa12ac7bc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SpecialAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""41bfe6d6-ecef-414f-a498-179c0c334851"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -156,6 +180,72 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6fe7c4f-e5c6-4c64-93a0-597b1badbfcf"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LightAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aba8e4b6-fb31-4fa9-b923-91b9ad7c5dfd"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LightAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f86170ca-8654-412b-a331-7f4e06c52936"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HeavyAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff3f1c16-fd33-4a77-85cb-d9b45d8dcd02"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HeavyAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""450fc95e-e6b4-457a-9574-5e355ad60506"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpecialAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5bdb9068-e0ef-47e1-a559-d68aacdbda35"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpecialAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -166,6 +256,9 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
         m_Platforming = asset.FindActionMap("Platforming", throwIfNotFound: true);
         m_Platforming_Move = m_Platforming.FindAction("Move", throwIfNotFound: true);
         m_Platforming_Jump = m_Platforming.FindAction("Jump", throwIfNotFound: true);
+        m_Platforming_LightAttack = m_Platforming.FindAction("LightAttack", throwIfNotFound: true);
+        m_Platforming_HeavyAttack = m_Platforming.FindAction("HeavyAttack", throwIfNotFound: true);
+        m_Platforming_SpecialAttack = m_Platforming.FindAction("SpecialAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -217,12 +310,18 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
     private IPlatformingActions m_PlatformingActionsCallbackInterface;
     private readonly InputAction m_Platforming_Move;
     private readonly InputAction m_Platforming_Jump;
+    private readonly InputAction m_Platforming_LightAttack;
+    private readonly InputAction m_Platforming_HeavyAttack;
+    private readonly InputAction m_Platforming_SpecialAttack;
     public struct PlatformingActions
     {
         private @PlayerInputControls m_Wrapper;
         public PlatformingActions(@PlayerInputControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Platforming_Move;
         public InputAction @Jump => m_Wrapper.m_Platforming_Jump;
+        public InputAction @LightAttack => m_Wrapper.m_Platforming_LightAttack;
+        public InputAction @HeavyAttack => m_Wrapper.m_Platforming_HeavyAttack;
+        public InputAction @SpecialAttack => m_Wrapper.m_Platforming_SpecialAttack;
         public InputActionMap Get() { return m_Wrapper.m_Platforming; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -238,6 +337,15 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_PlatformingActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlatformingActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlatformingActionsCallbackInterface.OnJump;
+                @LightAttack.started -= m_Wrapper.m_PlatformingActionsCallbackInterface.OnLightAttack;
+                @LightAttack.performed -= m_Wrapper.m_PlatformingActionsCallbackInterface.OnLightAttack;
+                @LightAttack.canceled -= m_Wrapper.m_PlatformingActionsCallbackInterface.OnLightAttack;
+                @HeavyAttack.started -= m_Wrapper.m_PlatformingActionsCallbackInterface.OnHeavyAttack;
+                @HeavyAttack.performed -= m_Wrapper.m_PlatformingActionsCallbackInterface.OnHeavyAttack;
+                @HeavyAttack.canceled -= m_Wrapper.m_PlatformingActionsCallbackInterface.OnHeavyAttack;
+                @SpecialAttack.started -= m_Wrapper.m_PlatformingActionsCallbackInterface.OnSpecialAttack;
+                @SpecialAttack.performed -= m_Wrapper.m_PlatformingActionsCallbackInterface.OnSpecialAttack;
+                @SpecialAttack.canceled -= m_Wrapper.m_PlatformingActionsCallbackInterface.OnSpecialAttack;
             }
             m_Wrapper.m_PlatformingActionsCallbackInterface = instance;
             if (instance != null)
@@ -248,6 +356,15 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @LightAttack.started += instance.OnLightAttack;
+                @LightAttack.performed += instance.OnLightAttack;
+                @LightAttack.canceled += instance.OnLightAttack;
+                @HeavyAttack.started += instance.OnHeavyAttack;
+                @HeavyAttack.performed += instance.OnHeavyAttack;
+                @HeavyAttack.canceled += instance.OnHeavyAttack;
+                @SpecialAttack.started += instance.OnSpecialAttack;
+                @SpecialAttack.performed += instance.OnSpecialAttack;
+                @SpecialAttack.canceled += instance.OnSpecialAttack;
             }
         }
     }
@@ -256,5 +373,8 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnLightAttack(InputAction.CallbackContext context);
+        void OnHeavyAttack(InputAction.CallbackContext context);
+        void OnSpecialAttack(InputAction.CallbackContext context);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Cinemachine;
 
 public class RoomCamBarrier : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class RoomCamBarrier : MonoBehaviour
     {
         if(other.CompareTag("Player") && !other.isTrigger)
         {
+            virtualCam.GetComponent<CinemachineVirtualCamera>().Follow = other.transform;
             virtualCam.SetActive(true);
         }
     }

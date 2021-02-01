@@ -9,16 +9,19 @@ public class BasePlayerController : MonoBehaviour
 
     //this character's Rigidbody
     private Rigidbody2D rb;
+
+    //This Character's Animator
+    public PlayerAnimations anim;
     
     //Character's Movement States
-    private enum EMovement
+    public enum EMovement
     {
         GROUNDED,       //The Character is on the Ground
         JUMPING,        //The Character is Jumping
         RISING,         //The Character is in the air after a jump (Hang Time)
         FALLING         //The Character is falling through the air
     }
-    [SerializeField] private EMovement MoveState;
+    public EMovement MoveState;
 
     //Move Variables
     private float moveSpeed, moveVelocity;
@@ -211,6 +214,9 @@ public class BasePlayerController : MonoBehaviour
         //Read the Movement Value from the inputActions
         float moveInput = GetMoveInput();
 
+        //Set Character Direction
+        anim.TurnCharacter(moveInput);
+
         //if the character isn't moving into the wall, move. Else, don't.
         if ((moveInput < 0 && leftPos.IsTouchingLayers(levelLayer)) ||
             (moveInput > 0 && rightPos.IsTouchingLayers(levelLayer)))
@@ -221,8 +227,12 @@ public class BasePlayerController : MonoBehaviour
         //Calculate the movement
         else
         {
+            //Set velocity
             moveVelocity = moveInput * moveSpeed * Time.deltaTime;
         }
+
+        //Set Animation
+        anim.SetIsMoving(moveVelocity);
 
         //Move the Character
         //rb.velocity = new Vector2(moveVelocity, rb.velocity.y);

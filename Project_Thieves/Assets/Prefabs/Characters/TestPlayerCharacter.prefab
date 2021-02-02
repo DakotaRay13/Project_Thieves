@@ -368,6 +368,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ybot
       objectReference: {fileID: 0}
+    - target: {fileID: 5822821947120931875, guid: 566419681dc3940428cf055aead3600a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ef7c311ce0ac34248989e3656c0deb64, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 566419681dc3940428cf055aead3600a, type: 3}
 --- !u!1 &8139453954961241543 stripped

@@ -24,10 +24,12 @@ public class BasePlayerController : MonoBehaviour
     public EMovement MoveState;
 
     //Move Variables
-    private float moveSpeed, moveVelocity;
+    public float moveInput;
+    [SerializeField] private float moveSpeed, moveVelocity;
 
-    //EdgeCollisions
-    public BoxCollider2D footPos, leftPos, rightPos;
+    //Edge Collisions
+    private BoxCollider2D playerCollision;
+    private bool isGrounded;
     public LayerMask levelLayer;
 
     //Jump Variables
@@ -65,8 +67,11 @@ public class BasePlayerController : MonoBehaviour
 
     void Start()
     {
+        playerCollision = GetComponent<BoxCollider2D>();
+        CheckForGround();
+
         //Set Move Variables
-        moveSpeed = 9f;
+        moveSpeed = 430f;
         moveVelocity = 0f;
 
         //Set Jump Variables
@@ -98,13 +103,17 @@ public class BasePlayerController : MonoBehaviour
 
     private void Update()
     {
-        MoveCharacter();
+        //Get Movement input
+        GetMoveInput();
+
+        //Check if the player is grounded
+        CheckForGround();
     }
 
     void FixedUpdate()
     {
         //Read the movement value and move the player
-        //MoveCharacter();
+        MoveCharacter();
         
         //Check the movement states to see if they're still valid
         CheckMovement();
@@ -120,7 +129,7 @@ public class BasePlayerController : MonoBehaviour
             case (EMovement.GROUNDED):
                 {
                     //If there is no ground below the player, they are falling.
-                    if (footPos.IsTouchingLayers(levelLayer) == false)
+                    if (isGrounded == false)
                     {
                         UpdateMoveState(EMovement.FALLING);
                         StartCoroutine(PerformCoyoteTime());
@@ -145,7 +154,7 @@ public class BasePlayerController : MonoBehaviour
             case (EMovement.FALLING):
                 {
                     //If there is ground below the player, they are grounded.
-                    if (footPos.IsTouchingLayers(levelLayer) == true)
+                    if (isGrounded == true)
                     {
                         UpdateMoveState(EMovement.GROUNDED);
                     }
@@ -203,23 +212,68 @@ public class BasePlayerController : MonoBehaviour
                     //Update the MoveState to newMovement
                     MoveState = newMovement;
 
+                    Debug.Log("Character is Falling.");
+
                     break;
                 }
         }
     }
-        
+
+    //Check if the ground is underneath the player
+    public void CheckForGround()
+    {
+        float checkDistance = 0.2f;
+        RaycastHit2D groundCheck = Physics2D.BoxCast(playerCollision.bounds.center, playerCollision.bounds.size, 0f, Vector2.down, checkDistance, levelLayer);
+
+        //Debug box shows ground check
+        //Color rayColor;
+        //if(groundCheck.collider != null)
+        //{
+        //    rayColor = Color.green;
+        //}
+        //else
+        //{
+        //    rayColor = Color.red;
+        //}
+
+        //Draw the box
+        //Debug.DrawRay(playerCollision.bounds.center + new Vector3(playerCollision.bounds.extents.x, 0), Vector2.down * (playerCollision.bounds.extents.y + checkDistance), rayColor);
+        //Debug.DrawRay(playerCollision.bounds.center - new Vector3(playerCollision.bounds.extents.x, 0), Vector2.down * (playerCollision.bounds.extents.y + checkDistance), rayColor);
+        //Debug.DrawRay(playerCollision.bounds.center - new Vector3(playerCollision.bounds.extents.x, playerCollision.bounds.extents.y + checkDistance), Vector2.right * (playerCollision.bounds.extents.x * 2f), rayColor);
+
+        isGrounded = groundCheck.collider != null;
+    }
+
+    //Check for collision in the direction the player is going
+    public void HorizontalCollision()
+    {
+        float direction = Mathf.Sign(rb.velocity.x);
+        float checkDistance = 0.2f;
+
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(playerCollision.bounds.extents.x, playerCollision.size.y / 2), Vector2.right * direction, checkDistance, levelLayer);
+
+        Color rayColor;
+        if (hit.collider != null)
+        {
+            rayColor = Color.green;
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+        Debug.DrawRay(new Vector2((playerCollision.bounds.size.x / 2) * direction, playerCollision.bounds.size.y / 2), Vector2.right * direction, rayColor, checkDistance);
+    }
+
     //Move the Character on the Horizontal Axis
     public void MoveCharacter()
     {
-        //Read the Movement Value from the inputActions
-        float moveInput = GetMoveInput();
-
         //Set Character Direction
         anim.TurnCharacter(moveInput);
 
+        HorizontalCollision();
+
         //if the character isn't moving into the wall, move. Else, don't.
-        if ((moveInput < 0 && leftPos.IsTouchingLayers(levelLayer)) ||
-            (moveInput > 0 && rightPos.IsTouchingLayers(levelLayer)))
+        if (moveInput == 0)
         {
             moveVelocity = 0f;
         }
@@ -235,17 +289,13 @@ public class BasePlayerController : MonoBehaviour
         anim.SetIsMoving(moveVelocity);
 
         //Move the Character
-        //rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
-
-        Vector3 newPos = transform.position;
-        newPos += new Vector3(moveVelocity, 0f, 0f);
-        transform.position = newPos;
+        rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
     }
 
     //Get the value of the movement input
-    public float GetMoveInput()
+    public void GetMoveInput()
     {
-        return inputActions.Platforming.Move.ReadValue<float>();
+        moveInput = inputActions.Platforming.Move.ReadValue<float>();
     }
 
     // JUMP FUNCTIONS //

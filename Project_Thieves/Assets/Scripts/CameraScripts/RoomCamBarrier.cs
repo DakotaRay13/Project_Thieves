@@ -7,11 +7,15 @@ public class RoomCamBarrier : MonoBehaviour
 
     public GameObject virtualCam;
 
+    private void Start()
+    {
+        virtualCam.GetComponent<CinemachineVirtualCamera>().Follow = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player") && !other.isTrigger)
+        if (other.CompareTag("Player") && !other.isTrigger)
         {
-            virtualCam.GetComponent<CinemachineVirtualCamera>().Follow = other.transform;
             virtualCam.SetActive(true);
         }
     }

@@ -21,14 +21,18 @@ public class PlayerAnimations : MonoBehaviour
     //flip the character model on the Z axis
     public void TurnCharacter(float moveInput)
     {
-        if (moveInput < 0)
+        if(model.transform.localScale.z == -moveInput)
         {
-            model.transform.localScale = new Vector3(1f, 1f, -1f);
+            if (moveInput < 0)
+            {
+                model.transform.localScale = new Vector3(1f, 1f, -1f);
+            }
+            else if (moveInput > 0)
+            {
+                model.transform.localScale = new Vector3(1f, 1f, 1f);
+            }
         }
-        else if (moveInput > 0)
-        {
-            model.transform.localScale = new Vector3(1f, 1f, 1f);
-        }
+        
     }
     
     //Sets the character to moving

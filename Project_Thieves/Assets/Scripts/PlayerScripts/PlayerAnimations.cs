@@ -8,70 +8,59 @@ public class PlayerAnimations : MonoBehaviour
     public Animator anim;
     public GameObject model;
 
-    //Player Controllers
-    public BasePlayerController pc;
+    float direction;            //Player Direction
+    public bool jumping = false;       //Bools for animation states
 
-    private void Update()
+    //Player Controllers
+    //public BasePlayerController pc;
+
+    private void Start()
     {
-        CheckMoveAnims();
+        direction = model.transform.localScale.z;
     }
 
-    
-
-    //flip the character model on the Z axis
-    public void TurnCharacter(float moveInput)
+    //Flip the character model on the Z axis
+    public void TurnCharacter()
     {
-        if(model.transform.localScale.z == -moveInput)
+        direction *= -1;
+        model.transform.localScale = new Vector3(1f, 1f, direction);
+    }
+    
+    public void CheckAnims(float moveInput, Vector2 velocity, bool isGrounded)
+    {
+        //if the move input is the opposite of the character's direction, turn around.
+        if (direction == -moveInput)
         {
-            if (moveInput < 0)
-            {
-                model.transform.localScale = new Vector3(1f, 1f, -1f);
-            }
-            else if (moveInput > 0)
-            {
-                model.transform.localScale = new Vector3(1f, 1f, 1f);
-            }
+            TurnCharacter();
+        }
+
+        //if the character is grounded and moving, start the running animation
+        if(moveInput != 0 && isGrounded)
+        {
+            anim.Play("Running");
+        }
+
+        //If the character is grounded and not moving, start the idle animation
+        if(moveInput == 0 && isGrounded)
+        {
+            anim.Play("Idle");
+        }
+
+        //Check the jumping variable
+        if(jumping && velocity.y < 0)
+        {
+            jumping = false;
         }
         
-    }
-    
-    //Sets the character to moving
-    public void SetIsMoving(float moveVelocity)
-    {
-        if (moveVelocity != 0f && anim.GetBool("isGrounded") == true)
+        //If the character is not grounded and not jumping, start Airbourne
+        if(!isGrounded && !jumping)
         {
-            anim.SetBool("isRunning", true);
+            anim.Play("Airbourne");
         }
-        else anim.SetBool("isRunning", false);
-    }
-    
-    //Reset all the animations
-    public void ResetMovementAnims()
-    {
-        anim.SetBool("isGrounded", false);
-        anim.SetBool("isJumping", false);
-        anim.SetBool("isRising", false);
-        anim.SetBool("isFalling", false);
-    }
 
-    public void CheckMoveAnims()
-    {
-        ResetMovementAnims();
-        if (pc.MoveState == BasePlayerController.EMovement.GROUNDED)
+        if (!isGrounded && jumping)
         {
-            anim.SetBool("isGrounded", true);
-        }
-        if (pc.MoveState == BasePlayerController.EMovement.JUMPING)
-        {
-            anim.SetBool("isJumping", true);
-        }
-        if (pc.MoveState == BasePlayerController.EMovement.RISING)
-        {
-            anim.SetBool("isRising", true);
-        }
-        if (pc.MoveState == BasePlayerController.EMovement.FALLING)
-        {
-            anim.SetBool("isFalling", true);
+            anim.Play("Jumping");
         }
     }
 }

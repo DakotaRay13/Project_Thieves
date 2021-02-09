@@ -9,6 +9,10 @@ public class Player : MonoBehaviour
     //Player Controls
     private PlayerInputControls inputActions;
 
+    //Player Animations
+    public PlayerAnimations anim;
+
+    public float moveInput;
     float moveSpeed = 6f;
     float gravity;
 
@@ -60,6 +64,10 @@ public class Player : MonoBehaviour
         Debug.Log("Gravity: " + gravity + ", Jump Velocity: " + maxJumpVelocity + " CT: " + coyoteTime);
 
         //Set up Input Functions
+        inputActions.Platforming.Move.started += _ => moveInput = inputActions.Platforming.Move.ReadValue<float>();
+        inputActions.Platforming.Move.performed += _ => moveInput = inputActions.Platforming.Move.ReadValue<float>();
+        inputActions.Platforming.Move.canceled += _ => moveInput = inputActions.Platforming.Move.ReadValue<float>();
+
         inputActions.Platforming.Jump.performed += _ => StartJump();
         inputActions.Platforming.Jump.canceled += _ => StopJump();
     }
@@ -82,6 +90,7 @@ public class Player : MonoBehaviour
         {
             velocity.y = maxJumpVelocity;
             startJump = false;
+            anim.jumping = true;
 
             if (bufferJump) bufferJump = false;
         }
@@ -95,11 +104,14 @@ public class Player : MonoBehaviour
             stopJump = false;
         }
 
-        float moveInput = inputActions.Platforming.Move.ReadValue<float>();
+        //float moveInput = inputActions.Platforming.Move.ReadValue<float>();
         float targetVelocityX = moveSpeed * moveInput;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, accelTime);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        //Check Animations
+        anim.CheckAnims(moveInput, velocity, controller.collisions.below);
     }
 
     // JUMP FUNCTIONS //

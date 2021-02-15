@@ -3,8 +3,18 @@ using System.Diagnostics;
 using UnityEngine;
 
 [RequireComponent(typeof(Controller2D))]
-public class Player : MonoBehaviour
+public abstract class Player : MonoBehaviour
 {
+    //Player Health
+    public static float MAX_HEALTH;
+    public static float HEALTH;
+
+    //Player character's Defense
+    public float defense;
+
+    //Locks the player's ground movement
+    public bool movementLock;
+
     Controller2D controller;
 
     //Player Controls
@@ -234,4 +244,12 @@ public class Player : MonoBehaviour
         cameraControlDelayStart = false;
 
     }
+
+    /************************************************************************
+     * BASIC ACTIONS
+     ***********************************************************************/
+
+    public abstract void LightAttack();
+    public abstract void HeavyAttack();
+    public abstract void DefensiveAction();
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 
 [RequireComponent(typeof(Controller2D))]
@@ -26,12 +27,22 @@ public class Player : MonoBehaviour
     bool startJump = false;
     bool stopJump = false;
 
+    bool startCrouch = false;
+    bool stayCrouch = false;
+
     public bool isCoyoteTime = false;
     float coyoteTime = 0.1f;
     bool wasGrounded = true;
 
     bool bufferJump = false;
     public float bufferTime = 0.1f;
+
+    //camera control stuff
+    bool cameraControlDelay = false;
+    bool cameraControlDelayStart = false;
+    public float cameraDealyTime = 0.1f;
+    Cinemachine.CinemachineImpulseSource source;
+    bool impulseSent = false;
 
     public float maxJumpHeight = 4f;
     public float minJumpHeight = 1f;
@@ -61,12 +72,16 @@ public class Player : MonoBehaviour
         maxJumpVelocity = Mathf.Abs(gravity) * jumpTime;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
 
-        Debug.Log("Gravity: " + gravity + ", Jump Velocity: " + maxJumpVelocity + " CT: " + coyoteTime);
+        UnityEngine.Debug.Log("Gravity: " + gravity + ", Jump Velocity: " + maxJumpVelocity + " CT: " + coyoteTime);
 
         //Set up Input Functions
         inputActions.Platforming.Move.started += _ => moveInput = inputActions.Platforming.Move.ReadValue<float>();
         inputActions.Platforming.Move.performed += _ => moveInput = inputActions.Platforming.Move.ReadValue<float>();
         inputActions.Platforming.Move.canceled += _ => moveInput = inputActions.Platforming.Move.ReadValue<float>();
+
+        inputActions.Platforming.Crouch.performed += _ => StartCrouch();
+        //inputActions.Platforming.Crouch.performed += _ => StayCrouch();
+        inputActions.Platforming.Crouch.canceled += _ => CancelCrouch();
 
         inputActions.Platforming.Jump.performed += _ => StartJump();
         inputActions.Platforming.Jump.canceled += _ => StopJump();
@@ -75,11 +90,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //set velocity Y to 0 if has collisions
         if (controller.collisions.above || controller.collisions.below)
         {
             velocity.y = 0f;
         }
-
+        
+        //start Jump
+        
         if(wasGrounded == true && controller.collisions.below == false && velocity.y < 0)
         {
             StartCoroutine(CoyoteTime());
@@ -102,6 +120,24 @@ public class Player : MonoBehaviour
                 velocity.y = minJumpVelocity;
             }
             stopJump = false;
+        }
+
+        //start crouch
+        if(controller.collisions.below && startCrouch)
+        {
+            //edit here for crouch animation
+
+            //camera control
+            if (!cameraControlDelayStart && !cameraControlDelay) StartCoroutine(CameraControlDelay());
+            if (cameraControlDelay)
+            {
+                //for shaking screen apparently
+                //impulseSent = true;
+                //source = GetComponent<Cinemachine.CinemachineImpulseSource>();
+                //source.GenerateImpulse(Camera.main.transform.up * -1);
+                //insert impulse here for virtual camera
+            }
+            //else impulseSent = false;
         }
 
         //float moveInput = inputActions.Platforming.Move.ReadValue<float>();
@@ -138,7 +174,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator CoyoteTime()
     {
-        Debug.Log("Coyote Time has begun!");
+        UnityEngine.Debug.Log("Coyote Time has begun!");
 
         isCoyoteTime = true;
 
@@ -150,12 +186,52 @@ public class Player : MonoBehaviour
 
     public IEnumerator BufferJump()
     {
-        Debug.Log("Buffer Jump Used");
+        UnityEngine.Debug.Log("Buffer Jump Used");
 
         bufferJump = true;
 
         yield return new WaitForSeconds(bufferTime);
 
         bufferJump = false;
+    }
+    /************************************************************************
+     * Function: Crouch stuff
+     * started(): transition to crouch
+     * Perform(): keep crouch animation
+     * cancel(): get out of crouch
+     ***********************************************************************/
+    
+    //===========================Started()===================================
+    void StartCrouch()
+    {
+        startCrouch = true;
+    }
+
+    //==========================Perform()====================================
+    void StayCrouch()
+    {
+        stayCrouch = true;
+    }
+    //===========================cancel()====================================
+    void CancelCrouch()
+    {
+        startCrouch = false;
+        stayCrouch = false;
+        cameraControlDelay = false;
+        
+    }
+    //==========================CameraControlDelay()=========================
+    public IEnumerator CameraControlDelay()
+    {
+        UnityEngine.Debug.Log("Camera Control Delay");
+
+        cameraControlDelayStart = true;
+        cameraControlDelay = false;
+
+        yield return new WaitForSeconds(cameraDealyTime);
+
+        cameraControlDelay = true;
+        cameraControlDelayStart = false;
+
     }
 }

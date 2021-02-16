@@ -110,6 +110,7 @@ public abstract class Player : MonoBehaviour
         
         if(wasGrounded == true && controller.collisions.below == false && velocity.y < 0)
         {
+            isCoyoteTime = true;
             StartCoroutine(CoyoteTime());
         }
         wasGrounded = controller.collisions.below;
@@ -157,7 +158,7 @@ public abstract class Player : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         //Check Animations
-        anim.CheckAnims(moveInput, velocity, controller.collisions.below);
+        anim.CheckAnims(moveInput, velocity, controller.collisions.below || controller.collisions.grounded);
     }
 
     // JUMP FUNCTIONS //

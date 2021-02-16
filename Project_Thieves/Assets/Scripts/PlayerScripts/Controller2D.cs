@@ -56,17 +56,17 @@ public class Controller2D : MonoBehaviour
 
         for (int i = 0; i < verticalRayCount; i++)
         {
-            Vector2 rayOrigin = (direction == -1f)?raycastOrigins.bottomLeft:raycastOrigins.topLeft;
+            Vector2 rayOrigin = (direction == -1f) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
             rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
 
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * direction, rayLegnth, collisionMask);
 
-            if(hit)
+            if (hit)
             {
                 velocity.y = (hit.distance - SKIN_WIDTH) * direction;
                 rayLegnth = hit.distance;
 
-                if(collisions.climbingSlope)
+                if (collisions.climbingSlope)
                 {
                     velocity.x = velocity.y / Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(velocity.x);
                 }
@@ -78,7 +78,19 @@ public class Controller2D : MonoBehaviour
             Debug.DrawRay(rayOrigin, Vector2.up * direction, Color.red);
         }
 
-        if(collisions.climbingSlope)
+        //Check for ground
+        if(!collisions.below)
+        {
+            RaycastHit2D groundCheck = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, 0.2f, collisionMask);
+
+            if(groundCheck)
+            {
+                collisions.grounded = true;
+            }
+        }
+            
+
+        if (collisions.climbingSlope)
         {
             float directionX = Mathf.Sign(velocity.x);
             rayLegnth = Mathf.Abs(velocity.x);
@@ -228,6 +240,8 @@ public class Controller2D : MonoBehaviour
         public bool above, below;
         public bool left, right;
 
+        public bool grounded;
+
         public bool climbingSlope, descendingSlope;
         public float slopeAngle, slopeAngleOld;
 
@@ -237,6 +251,9 @@ public class Controller2D : MonoBehaviour
         {
             above = below = false;
             left = right = false;
+
+            grounded = false;
+
             climbingSlope = descendingSlope = false;
 
             slopeAngleOld = slopeAngle;

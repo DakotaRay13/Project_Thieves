@@ -463,7 +463,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   horizontalRayCount: 4
-  verticalRayCount: 5
+  verticalRayCount: 51
 --- !u!114 &786217856
 MonoBehaviour:
   m_ObjectHideFlags: 0

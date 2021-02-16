@@ -47,14 +47,15 @@ public class PlayerAnimations : MonoBehaviour
         }
 
         //Check the jumping variable
-        if(jumping && velocity.y < 0)
+        if(jumping && velocity.y <= 0)
         {
             jumping = false;
         }
-        
+
         //If the character is not grounded and not jumping, start Airbourne
-        if(!isGrounded && !jumping)
+        if (!isGrounded && !jumping && velocity.y <= 0f)
         {
+            //StartCoroutine(FallAnim());
             anim.Play("Airbourne");
         }
 

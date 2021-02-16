@@ -95,6 +95,8 @@ public abstract class Player : MonoBehaviour
 
         inputActions.Platforming.Jump.performed += _ => StartJump();
         inputActions.Platforming.Jump.canceled += _ => StopJump();
+
+        inputActions.Platforming.LightAttack.performed += _ => LightAttack();
     }
 
     // Update is called once per frame

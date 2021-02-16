@@ -8,7 +8,7 @@ public class PlayerAnimations : MonoBehaviour
     public Animator anim;
     public GameObject model;
 
-    float direction;            //Player Direction
+    public float direction;            //Player Direction
     public bool jumping = false;       //Bools for animation states
 
     //Player Controllers

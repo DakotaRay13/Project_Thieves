@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Controller2D))]
 public abstract class Player : MonoBehaviour
@@ -18,7 +19,7 @@ public abstract class Player : MonoBehaviour
     Controller2D controller;
 
     //Player Controls
-    private PlayerInputControls inputActions;
+    //private PlayerInputControls inputActions;
 
     //Player Animations
     public PlayerAnimations anim;
@@ -58,20 +59,20 @@ public abstract class Player : MonoBehaviour
     public float minJumpHeight = 1f;
     public float jumpTime = 0.4f;
 
-    private void Awake()
-    {
-        inputActions = new PlayerInputControls();
-    }
+    //private void Awake()
+    //{
+    //    inputActions = new PlayerInputControls();
+    //}
 
-    private void OnEnable()
-    {
-        inputActions.Enable();
-    }
+    //private void OnEnable()
+    //{
+    //    inputActions.Enable();
+    //}
 
-    private void OnDisable()
-    {
-        inputActions.Disable();
-    }
+    //private void OnDisable()
+    //{
+    //    inputActions.Disable();
+    //}
 
     // Start is called before the first frame update
     void Start()
@@ -85,19 +86,21 @@ public abstract class Player : MonoBehaviour
         UnityEngine.Debug.Log("Gravity: " + gravity + ", Jump Velocity: " + maxJumpVelocity + " CT: " + coyoteTime);
 
         //Set up Input Functions
-        inputActions.Platforming.Move.started += _ => moveInput = inputActions.Platforming.Move.ReadValue<float>();
-        inputActions.Platforming.Move.performed += _ => moveInput = inputActions.Platforming.Move.ReadValue<float>();
-        inputActions.Platforming.Move.canceled += _ => moveInput = inputActions.Platforming.Move.ReadValue<float>();
+        //inputActions.Platforming.Move.started += _ => moveInput = inputActions.Platforming.Move.ReadValue<float>();
+        //inputActions.Platforming.Move.performed += _ => moveInput = inputActions.Platforming.Move.ReadValue<float>();
+        //inputActions.Platforming.Move.canceled += _ => moveInput = inputActions.Platforming.Move.ReadValue<float>();
 
-        inputActions.Platforming.Crouch.performed += _ => StartCrouch();
-        //inputActions.Platforming.Crouch.performed += _ => StayCrouch();
-        inputActions.Platforming.Crouch.canceled += _ => CancelCrouch();
+        //inputActions.Platforming.Crouch.performed += _ => StartCrouch();
+        ////inputActions.Platforming.Crouch.performed += _ => StayCrouch();
+        //inputActions.Platforming.Crouch.canceled += _ => CancelCrouch();
 
-        inputActions.Platforming.Jump.performed += _ => StartJump();
-        inputActions.Platforming.Jump.canceled += _ => StopJump();
+        //inputActions.Platforming.Jump.performed += _ => StartJump();
+        //inputActions.Platforming.Jump.canceled += _ => StopJump();
 
-        inputActions.Platforming.LightAttack.performed += _ => LightAttack();
+        //inputActions.Platforming.LightAttack.performed += _ => LightAttack();
     }
+
+    
 
     // Update is called once per frame
     void Update()
@@ -162,8 +165,26 @@ public abstract class Player : MonoBehaviour
         //Check Animations
         anim.CheckAnims(moveInput, velocity, controller.collisions.below || controller.collisions.grounded);
     }
-
+    
+    //Get the input value from the move input
+    public void GetMoveInput(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<float>();
+    }
+    
     // JUMP FUNCTIONS //
+    public void GetJumpInput(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            StartJump();
+        }
+        else if (context.canceled)
+        {
+            StopJump();
+        }
+    }
+
     void StartJump()
     {
         if (controller.collisions.below || isCoyoteTime)

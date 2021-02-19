@@ -177,6 +177,7 @@ MonoBehaviour:
   jumpTime: 0.4
   shootPoint: {fileID: 6569369663291057409}
   nailGun: {fileID: -2301367147277497403, guid: e4af75bc9be2be241afbfc940d8c3597, type: 3}
+  equippedGun: {fileID: -2301367147277497403, guid: de915c06f2eff0c49964378047365856, type: 3}
 --- !u!114 &7763967257062841914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,7 +312,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2052515177583207769}
         m_TargetAssemblyTypeName: Player_Garrett, Assembly-CSharp
         m_MethodName: LightAttack
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -323,11 +324,35 @@ MonoBehaviour:
     m_ActionId: 22010ddc-f903-44c8-89b3-621d5827e6d6
     m_ActionName: Platforming/LightAttack[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2052515177583207769}
+        m_TargetAssemblyTypeName: Player_Garrett, Assembly-CSharp
+        m_MethodName: HeavyAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ccda6e42-0385-4eab-b2d9-d43fa12ac7bc
     m_ActionName: Platforming/HeavyAttack[/Mouse/rightButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2052515177583207769}
+        m_TargetAssemblyTypeName: Player_Garrett, Assembly-CSharp
+        m_MethodName: DefensiveAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 41bfe6d6-ecef-414f-a498-179c0c334851
     m_ActionName: Platforming/SpecialAttack[/Mouse/middleButton]
   m_NeverAutoSwitchControlSchemes: 0

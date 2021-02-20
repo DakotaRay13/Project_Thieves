@@ -34,6 +34,7 @@ public class Base_GarrettWeapon : MonoBehaviour
                 {
                     //Fire the shots off in different angles
                     float angleBetweenBullets = spreadAngle / numberOfBullets;
+                    float angleBetweenBullets = spreadAngle / (numberOfBullets - 1);
                     float fireAngle = spreadAngle / 2f;
 
                     Base_Bullet[] newBullets = new Base_Bullet[numberOfBullets];

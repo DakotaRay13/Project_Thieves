@@ -19,4 +19,9 @@ public class Player_Alex : Player
     {
         throw new System.NotImplementedException();
     }
+
+    public override float GetTargetVelocity()
+    {
+        return 0f;
+    }
 }

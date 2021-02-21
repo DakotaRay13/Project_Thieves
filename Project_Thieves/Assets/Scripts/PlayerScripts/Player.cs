@@ -16,7 +16,7 @@ public abstract class Player : MonoBehaviour
     //Locks the player's ground movement
     public bool movementLock;
 
-    Controller2D controller;
+    public Controller2D controller;
 
     //Player Controls
     //private PlayerInputControls inputActions;
@@ -157,13 +157,19 @@ public abstract class Player : MonoBehaviour
         }
 
         //float moveInput = inputActions.Platforming.Move.ReadValue<float>();
-        float targetVelocityX = moveSpeed * moveInput;
+        float targetVelocityX;
+        if (movementLock && (controller.collisions.below || controller.collisions.grounded))
+        {
+            targetVelocityX = GetTargetVelocity();
+        }
+        else targetVelocityX = moveSpeed * moveInput;
+
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, accelTime);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
         //Check Animations
-        anim.CheckAnims(moveInput, velocity, controller.collisions.below || controller.collisions.grounded);
+        anim.CheckAnims(!movementLock? moveInput : anim.direction, velocity, controller.collisions.below || controller.collisions.grounded);
     }
     
     //Get the input value from the move input
@@ -276,4 +282,6 @@ public abstract class Player : MonoBehaviour
     public abstract void LightAttack(InputAction.CallbackContext context);
     public abstract void HeavyAttack(InputAction.CallbackContext context);
     public abstract void DefensiveAction(InputAction.CallbackContext context);
+
+    public abstract float GetTargetVelocity();
 }

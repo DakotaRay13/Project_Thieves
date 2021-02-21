@@ -3823,6 +3823,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2052515177583207769, guid: 02b080e0962797e47a111b288c3b0ce4, type: 3}
+      propertyPath: dashTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7763967257062841915, guid: 02b080e0962797e47a111b288c3b0ce4, type: 3}
       propertyPath: m_Name
       value: tst_Player_Garrett

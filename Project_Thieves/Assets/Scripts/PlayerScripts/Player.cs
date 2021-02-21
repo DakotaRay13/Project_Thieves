@@ -273,7 +273,7 @@ public abstract class Player : MonoBehaviour
      * BASIC ACTIONS
      ***********************************************************************/
 
-    public abstract void LightAttack();
-    public abstract void HeavyAttack();
-    public abstract void DefensiveAction();
+    public abstract void LightAttack(InputAction.CallbackContext context);
+    public abstract void HeavyAttack(InputAction.CallbackContext context);
+    public abstract void DefensiveAction(InputAction.CallbackContext context);
 }

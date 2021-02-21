@@ -47,7 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 412487077966237784}
+  startPos: {fileID: 0}
   speed: 20
+  damage: 2
+  range: 5
 --- !u!212 &3995813559156151327
 SpriteRenderer:
   m_ObjectHideFlags: 0

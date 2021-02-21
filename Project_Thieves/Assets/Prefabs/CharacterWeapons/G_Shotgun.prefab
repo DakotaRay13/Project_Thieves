@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3118338765958335348}
   - component: {fileID: -2301367147277497403}
   m_Layer: 0
-  m_Name: tst_GarrettGun
+  m_Name: G_Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,4 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf7331ab1287f24db42e8cfbb2aa705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shotType: 1
   bullet: {fileID: 1916246091293929359, guid: 1413fd9f047312a4da6423abea56ecae, type: 3}
+  ammoCost: 0
+  spreadAngle: 45
+  numberOfBullets: 5

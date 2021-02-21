@@ -1,12 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player_Garrett : Player
 {
-    public static float AMMO;
-    
     //The point where Garrett can shoot from
     public Transform shootPoint;
 
@@ -14,36 +11,27 @@ public class Player_Garrett : Player
     public Base_GarrettWeapon nailGun;
 
     //Garrett's currently equiped gun / Heavy Attack
-    public Base_GarrettWeapon equippedGun;
 
-    public override void LightAttack(InputAction.CallbackContext context)
+    public override void LightAttack()
     {
-        if(context.started)
-        {
-            FireWeapon(nailGun);
-        }
+        Debug.Log("Light Attack Used");
+        FireWeapon(nailGun);
     }
 
-    public override void HeavyAttack(InputAction.CallbackContext context)
+    public override void HeavyAttack()
     {
-        if (context.started)
-        {
-            FireWeapon(equippedGun);
-        }
+        throw new System.NotImplementedException();
     }
 
-    public override void DefensiveAction(InputAction.CallbackContext context)
+    public override void DefensiveAction()
     {
         throw new System.NotImplementedException();
     }
 
     public void FireWeapon(Base_GarrettWeapon gun)
     {
-        if(gun.ammoCost <= AMMO)
-        {
-            gun.Fire(shootPoint.position, anim.direction);
-            AMMO -= gun.ammoCost;
-        }
-        //Else, play a click sound effect
+        Base_Bullet bullet = Instantiate<Base_Bullet>(gun.bullet, shootPoint.position, Quaternion.identity);
+        bullet.rb = bullet.GetComponent<Rigidbody2D>();
+        bullet.rb.velocity = Vector2.right * bullet.speed * anim.direction;
     }
 }

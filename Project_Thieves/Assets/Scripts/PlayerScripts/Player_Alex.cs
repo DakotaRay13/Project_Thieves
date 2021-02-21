@@ -1,21 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player_Alex : Player
 {
-    public override void LightAttack(InputAction.CallbackContext context)
+    public override void LightAttack()
     {
         throw new System.NotImplementedException();
     }
 
-    public override void HeavyAttack(InputAction.CallbackContext context)
+    public override void HeavyAttack()
     {
         throw new System.NotImplementedException();
     }
 
-    public override void DefensiveAction(InputAction.CallbackContext context)
+    public override void DefensiveAction()
     {
         throw new System.NotImplementedException();
     }

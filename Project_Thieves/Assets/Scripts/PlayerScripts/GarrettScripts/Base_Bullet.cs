@@ -6,9 +6,13 @@ public class Base_Bullet : MonoBehaviour
 {
     public Rigidbody2D rb;
     public Vector2 startPos;
-    public float speed;
-    public float damage;
-    public float range;
+
+    private Base_GarrettWeapon gun;
+
+    public void AssignGun(Base_GarrettWeapon gun)
+    {
+        this.gun = gun;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -20,7 +24,7 @@ public class Base_Bullet : MonoBehaviour
         if(collision.tag == "Enemy")
         {
             Debug.Log("Enemy Hit!");
-            collision.gameObject.GetComponent<Base_Enemy>().TakeDamage(damage);
+            collision.gameObject.GetComponent<Base_Enemy>().TakeDamage(gun.damage);
             DestroyBullet();
         }
     }
@@ -28,7 +32,7 @@ public class Base_Bullet : MonoBehaviour
     private void Update()
     {
         //Check the distance of the bullet each frame. When it reaches or passes it's range, destroy it.
-        if (Vector2.Distance(transform.position, startPos) >= range)
+        if (Vector2.Distance(transform.position, startPos) >= gun.range)
             DestroyBullet();
     }
 

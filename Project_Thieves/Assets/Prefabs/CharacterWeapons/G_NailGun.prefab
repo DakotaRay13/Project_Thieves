@@ -48,3 +48,6 @@ MonoBehaviour:
   ammoCost: 0
   spreadAngle: 0
   numberOfBullets: 1
+  speed: 20
+  damage: 5
+  range: 7

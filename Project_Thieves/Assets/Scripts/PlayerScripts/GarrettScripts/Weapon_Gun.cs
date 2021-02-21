@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Base_GarrettWeapon : MonoBehaviour
+public class Weapon_Gun : MonoBehaviour
 {
     public enum ShotType
     {
@@ -11,7 +11,7 @@ public class Base_GarrettWeapon : MonoBehaviour
     }
     public ShotType shotType;
 
-    public Base_Bullet bullet;      //Which bullet prefab will this weapon fire
+    public Bullet bullet;      //Which bullet prefab will this weapon fire
     public float ammoCost;          //How much ammo does this weapon cost
 
     [Range(0f, 360f)]
@@ -29,7 +29,7 @@ public class Base_GarrettWeapon : MonoBehaviour
         {
             case (ShotType.SINGLE):
                 {
-                    Base_Bullet newBullet = Instantiate(bullet, shootPoint, Quaternion.identity);
+                    Bullet newBullet = Instantiate(bullet, shootPoint, Quaternion.identity);
                     newBullet.AssignGun(this);
 
                     newBullet.startPos = shootPoint;
@@ -42,7 +42,7 @@ public class Base_GarrettWeapon : MonoBehaviour
                     float angleBetweenBullets = spreadAngle / (numberOfBullets - 1);
                     float fireAngle = spreadAngle / 2f;
 
-                    Base_Bullet[] newBullets = new Base_Bullet[numberOfBullets];
+                    Bullet[] newBullets = new Bullet[numberOfBullets];
 
                     for (int i = 0; i < numberOfBullets; i++)
                     {
@@ -60,7 +60,7 @@ public class Base_GarrettWeapon : MonoBehaviour
                 }
             default:
                 {
-                    Base_Bullet newBullet = Instantiate(bullet, shootPoint, Quaternion.identity);
+                    Bullet newBullet = Instantiate(bullet, shootPoint, Quaternion.identity);
                     newBullet.AssignGun(this);
 
                     newBullet.startPos = shootPoint;

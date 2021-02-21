@@ -11,10 +11,10 @@ public class Player_Garrett : Player
     public Transform shootPoint;
 
     //Garrett's Nail Gun / Light Attack
-    public Base_GarrettWeapon nailGun;
+    public Weapon_Gun nailGun;
 
     //Garrett's currently equiped gun / Heavy Attack
-    public Base_GarrettWeapon equippedGun;
+    public Weapon_Gun equippedGun;
 
     public override void LightAttack(InputAction.CallbackContext context)
     {
@@ -37,7 +37,7 @@ public class Player_Garrett : Player
         throw new System.NotImplementedException();
     }
 
-    public void FireWeapon(Base_GarrettWeapon gun)
+    public void FireWeapon(Weapon_Gun gun)
     {
         if(gun.ammoCost <= AMMO)
         {

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Base_Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     public Rigidbody2D rb;
     public Vector2 startPos;
 
-    private Base_GarrettWeapon gun;
+    private Weapon_Gun gun;
 
-    public void AssignGun(Base_GarrettWeapon gun)
+    public void AssignGun(Weapon_Gun gun)
     {
         this.gun = gun;
     }

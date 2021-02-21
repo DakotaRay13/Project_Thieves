@@ -37,17 +37,8 @@ public class PlayerAnimations : MonoBehaviour
         //if the character is grounded and moving, start the running animation
         if(moveInput != 0 && isGrounded)
         {
-            if (Mathf.Abs(moveInput) < 0.75f)
-            {
-                anim.Play("Walking");
-                anim.SetFloat("WalkSpeed", (moveInput / 0.75f) * direction);
-            }
-            else
-            {
-                anim.Play("Running");
-                anim.SetFloat("WalkSpeed", moveInput * direction);
-            }
-            
+            anim.Play("Running");
+            anim.SetFloat("WalkSpeed", moveInput * direction);
         }
 
         //If the character is grounded and not moving, start the idle animation

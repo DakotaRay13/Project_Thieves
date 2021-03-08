@@ -32,6 +32,7 @@ public class Weapon_Gun : MonoBehaviour
                     Bullet newBullet = Instantiate(bullet, shootPoint, Quaternion.identity);
                     newBullet.AssignGun(this);
 
+                    newBullet.transform.localScale *= direction;
                     newBullet.startPos = shootPoint;
                     newBullet.rb.velocity = Vector2.right * speed * direction;
                     break;
@@ -50,6 +51,7 @@ public class Weapon_Gun : MonoBehaviour
                         newBullets[i].AssignGun(this);
                         newBullets[i].startPos = shootPoint;
 
+                        newBullets[i].transform.localScale *= direction;
                         newBullets[i].transform.Rotate(0f, 0f, fireAngle);
                         fireAngle -= angleBetweenBullets;
 
@@ -64,6 +66,7 @@ public class Weapon_Gun : MonoBehaviour
                     newBullet.AssignGun(this);
 
                     newBullet.startPos = shootPoint;
+                    newBullet.transform.localScale *= direction;
                     newBullet.rb.velocity = Vector2.right * speed * direction;
                     break;
                 }

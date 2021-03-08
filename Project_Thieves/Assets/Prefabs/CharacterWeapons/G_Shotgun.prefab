@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shotType: 1
-  bullet: {fileID: 1916246091293929359, guid: 1413fd9f047312a4da6423abea56ecae, type: 3}
+  bullet: {fileID: 1916246091293929359, guid: 826a5b14dff9d5c4e8297056bed21a5b, type: 3}
   ammoCost: 0
   spreadAngle: 45
   numberOfBullets: 5

@@ -81,7 +81,7 @@ public class Controller2D : MonoBehaviour
         //Check for ground
         if(!collisions.below)
         {
-            RaycastHit2D groundCheck = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, 0.2f, collisionMask);
+            RaycastHit2D groundCheck = Physics2D.BoxCast(boxCollider.bounds.center, new Vector2(boxCollider.bounds.size.x - 0.1f, boxCollider.bounds.size.y), 0f, Vector2.down, 0.2f, collisionMask);
 
             if(groundCheck)
             {

@@ -15,6 +15,8 @@ public abstract class Player : MonoBehaviour
 
     //Locks the player's ground movement
     public bool movementLock;
+    public bool isAttacking = false; //TEMPORARY UNTIL ANIMATIONS CAN MOVE TOGEATHER.
+    public bool canAttack = true;
 
     public Controller2D controller;
 
@@ -25,7 +27,7 @@ public abstract class Player : MonoBehaviour
     public PlayerAnimations anim;
 
     public float moveInput;
-    float moveSpeed = 6f;
+    float moveSpeed = 7f;
     float gravity;
 
     public Vector3 velocity;
@@ -41,9 +43,11 @@ public abstract class Player : MonoBehaviour
     bool startCrouch = false;
     bool stayCrouch = false;
 
+    bool isCrouched = false;
+
     public bool isCoyoteTime = false;
     float coyoteTime = 0.1f;
-    bool wasGrounded = true;
+    public bool wasGrounded = true;
 
     bool bufferJump = false;
     public float bufferTime = 0.1f;
@@ -169,7 +173,7 @@ public abstract class Player : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         //Check Animations
-        anim.CheckAnims(!movementLock? moveInput : anim.direction, velocity, controller.collisions.below || controller.collisions.grounded);
+        anim.CheckAnims(!movementLock || (movementLock && (!controller.collisions.below || !controller.collisions.grounded))? moveInput : anim.direction, velocity, controller.collisions.below || controller.collisions.grounded, isCrouched, isAttacking);
     }
     
     //Get the input value from the move input
@@ -282,6 +286,19 @@ public abstract class Player : MonoBehaviour
     public abstract void LightAttack(InputAction.CallbackContext context);
     public abstract void HeavyAttack(InputAction.CallbackContext context);
     public abstract void DefensiveAction(InputAction.CallbackContext context);
+
+    public void Crouch(InputAction.CallbackContext context)
+    {
+        if(controller.collisions.grounded || controller.collisions.below)
+            if (context.started || context.performed)
+            {
+                isCrouched = true;
+            }
+        if (context.canceled)
+        {
+            isCrouched = false;
+        }
+    }
 
     public abstract float GetTargetVelocity();
 }

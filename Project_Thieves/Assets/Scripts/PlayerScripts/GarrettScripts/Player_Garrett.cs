@@ -16,63 +16,106 @@ public class Player_Garrett : Player
     //Garrett's currently equiped gun / Heavy Attack
     public Weapon_Gun equippedGun;
 
-    public bool isDashing = false;
-    public float dashSpeed = 12f;
-    public float dashTime = 0.25f;
+    public bool isDodging = false;
+    public float dodgeSpeed = 9f;
 
     public override void LightAttack(InputAction.CallbackContext context)
     {
-        if(!movementLock)
+        if(!movementLock || (isAttacking && canAttack))
             if (context.started)
             {
+                if (anim.direction == -moveInput) anim.TurnCharacter();
+                anim.anim.Play("FireNailGun");
+                if (isAttacking)
+                {
+                    StopAllCoroutines();
+                }
+                StartCoroutine(WeaponAnim(0.3f));
                 FireWeapon(nailGun);
             }
     }
 
     public override void HeavyAttack(InputAction.CallbackContext context)
     {
-        if (!movementLock)
+        if (!movementLock || (isAttacking && canAttack))
             if (context.started)
             {
+                if (anim.direction == -moveInput) anim.TurnCharacter();
+                anim.anim.Play("FireShotgun");
+                if (isAttacking)
+                {
+                    StopAllCoroutines();
+                }
+                StartCoroutine(WeaponAnim(2.5f));
                 FireWeapon(equippedGun);
             }
     }
 
     public override void DefensiveAction(InputAction.CallbackContext context)
     {
-        if (!movementLock)
+        if (!movementLock || isAttacking)
             if (context.started)
             {
-                if ((controller.collisions.below || controller.collisions.grounded) && !isDashing)
+                if ((controller.collisions.below || controller.collisions.grounded) && !isDodging)
                 {
-                    StartCoroutine(Dash());
+                    if (anim.direction == -moveInput) anim.TurnCharacter();
+                    StartDodge();
                 }
             }
     }
 
     private void LateUpdate()
     {
-        if(isDashing)
+        if(isDodging)
         {
-            if((!controller.collisions.grounded && !controller.collisions.below) || controller.collisions.left || controller.collisions.right)
+            if((!controller.collisions.grounded && !controller.collisions.below) || anim.jumping || controller.collisions.left || controller.collisions.right)
             {
-                StopCoroutine(Dash());
-                isDashing = false;
+                Debug.Log("Dodged into a wall or off an edge. Or the player jumped.");
+                StopDodge();
+            }
+        }
+        if(isAttacking)
+        {
+            if ((anim.jumping && wasGrounded))
+            {
+                StopAllCoroutines();
+                isAttacking = false;
                 movementLock = false;
+            }  
+            else if(isDodging)
+            {
+                StopAllCoroutines();
+                isAttacking = false;
             }
         }
     }
 
     //Make Garrett dash across the screen
-    public IEnumerator Dash()
+    //public IEnumerator Dodge()
+    //{
+    //    anim.animation.Play("Dodge");
+    //    isDodging = true;
+    //    movementLock = true;
+    //    Debug.Log("Animation Time: " + anim.animation["Dodge"].length * anim.animation["Dodge"].speed);
+    //    yield return new WaitForSeconds(anim.animation["Dodge"].length * anim.animation["Dodge"].speed);
+
+    //    isDodging = false;
+    //    movementLock = false;
+    //}
+
+    public void StartDodge()
     {
-        isDashing = true;
+        anim.anim.Play("Dodge");
+        anim.anim.SetBool("isDodging", true);
+        isDodging = true;
         movementLock = true;
+    }
 
-        yield return new WaitForSeconds(dashTime);
-
-        isDashing = false;
+    public void StopDodge()
+    {
+        isDodging = false;
         movementLock = false;
+        anim.anim.SetBool("isDodging", false);
     }
 
     public void FireWeapon(Weapon_Gun gun)
@@ -85,10 +128,31 @@ public class Player_Garrett : Player
         //Else, play a click sound effect
     }
 
+    public IEnumerator WeaponAnim(float time)
+    {
+        movementLock = true;
+        isAttacking = true;
+        canAttack = false;
+
+        yield return new WaitForSeconds(time);
+        
+        isAttacking = false;
+        movementLock = false;
+        canAttack = true;
+    }
+
     //Get the Target velocity for if the movement lock is on;
     public override float GetTargetVelocity()
     {
-        if (isDashing) return anim.direction * dashSpeed;
-        else return 0f;
+        if (isDodging)
+        {
+            Debug.Log("Dodge Velocity returned.");
+            return anim.direction * dodgeSpeed;
+        }
+        else
+        {
+            Debug.Log("0 Returned.");
+            return 0f;
+        }
     }
 }

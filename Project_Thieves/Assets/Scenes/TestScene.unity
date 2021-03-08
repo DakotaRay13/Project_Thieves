@@ -123,6 +123,67 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &357352572
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7763967257062841915, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
+      propertyPath: m_Name
+      value: PlayerChar_Alex
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763967257062841915, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763967257062842054, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763967257062842054, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763967257062842054, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763967257062842054, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763967257062842054, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763967257062842054, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763967257062842054, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763967257062842054, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763967257062842054, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763967257062842054, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763967257062842054, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: efffdd7367f7af54d8659b24fdf6c6d2, type: 3}
 --- !u!1 &366363582 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 566419681dc3940428cf055aead3600a, type: 3}
@@ -147,6 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 366363585}
   model: {fileID: 366363582}
+  direction: 0
   jumping: 0
 --- !u!95 &366363585
 Animator:
@@ -446,7 +508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &786217855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,6 +540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defense: 0
   movementLock: 0
+  controller: {fileID: 0}
   anim: {fileID: 366363584}
   moveInput: 0
   velocity: {x: 0, y: 0, z: 0}

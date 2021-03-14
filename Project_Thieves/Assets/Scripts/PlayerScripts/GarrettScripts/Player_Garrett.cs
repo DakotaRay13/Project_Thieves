@@ -146,12 +146,10 @@ public class Player_Garrett : Player
     {
         if (isDodging)
         {
-            Debug.Log("Dodge Velocity returned.");
             return anim.direction * dodgeSpeed;
         }
         else
         {
-            Debug.Log("0 Returned.");
             return 0f;
         }
     }

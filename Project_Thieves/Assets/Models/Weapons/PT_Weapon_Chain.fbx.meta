@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 23adbf704b7c899429fed1ee89f94bb2
+guid: 433098c6c33c7804693671bdf05f860c
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable: []
@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Outline
-    second: {fileID: 2100000, guid: cff5b6659ae2b954993d3f9ac7b0dc16, type: 2}
+      name: ChainUV
+    second: {fileID: 2100000, guid: 40bdd15222e6bb34383ba8125b3b585f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ShotgunUV
-    second: {fileID: 2100000, guid: 8f3e6aec2e74db14094de27d0a96a906, type: 2}
+      name: Outline
+    second: {fileID: 2100000, guid: cff5b6659ae2b954993d3f9ac7b0dc16, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -75,13 +75,13 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 180
+    normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
-    normalSmoothingSource: 2
+    normalSmoothingSource: 0
   referencedClips: []
   importAnimation: 1
   humanDescription:

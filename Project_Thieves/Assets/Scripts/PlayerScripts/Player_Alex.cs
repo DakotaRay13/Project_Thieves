@@ -13,10 +13,17 @@ public class Player_Alex : Player
                 if (anim.direction == -moveInput) anim.TurnCharacter();
                 anim.anim.Play("LightSwing");
 
+                if (isAttacking)
+                {
+                    StopAllCoroutines();
+                }
+                StartCoroutine(WeaponAnim(0.8f));
+
+                /*
                 movementLock = true;
                 isAttacking = true;
                 canAttack = false;
-
+                */
             }
     }
 
@@ -28,9 +35,11 @@ public class Player_Alex : Player
                 if (anim.direction == -moveInput) anim.TurnCharacter();
                 anim.anim.Play("HeavySwing");
 
-                movementLock = true;
-                isAttacking = true;
-                canAttack = false;
+                if (isAttacking)
+                {
+                    StopAllCoroutines();
+                }
+                StartCoroutine(WeaponAnim(1.0f));
 
             }
     }
@@ -43,5 +52,18 @@ public class Player_Alex : Player
     public override float GetTargetVelocity()
     {
         return 0f;
+    }
+
+    public IEnumerator WeaponAnim(float time)
+    {
+        movementLock = true;
+        isAttacking = true;
+        canAttack = false;
+
+        yield return new WaitForSeconds(time);
+
+        isAttacking = false;
+        movementLock = false;
+        canAttack = true;
     }
 }

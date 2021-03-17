@@ -12,7 +12,7 @@ public class Weapon_Gun : MonoBehaviour
     public ShotType shotType;
 
     public Bullet bullet;      //Which bullet prefab will this weapon fire
-    public float ammoCost;          //How much ammo does this weapon cost
+    public int ammoCost;          //How much ammo does this weapon cost
 
     [Range(0f, 360f)]
     public float spreadAngle;       //How much spread on the shot

@@ -7,11 +7,8 @@ using UnityEngine.InputSystem;
 public abstract class Player : MonoBehaviour
 {
     //Player Health
-    public float MAX_HEALTH;
-    public float HEALTH;
-
-    //Player character's Defense
-    public float defense;
+    public int MAX_HEALTH;
+    public int HEALTH;
 
     //Locks the player's ground movement
     public bool movementLock;
@@ -111,9 +108,10 @@ public abstract class Player : MonoBehaviour
     {
         if(HEALTH <= 0f)
         {
-            anim.anim.SetBool("isDead", true);
+            anim.anim.SetTrigger("isDead");
             controller.enabled = false;
             this.enabled = false;
+            GetComponent<PlayerInput>().enabled = false;
         }
 
         //set velocity Y to 0 if has collisions

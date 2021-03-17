@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotType: 1
   bullet: {fileID: 1916246091293929359, guid: 826a5b14dff9d5c4e8297056bed21a5b, type: 3}
-  ammoCost: 0
+  ammoCost: 1
   spreadAngle: 45
   numberOfBullets: 5
   speed: 25

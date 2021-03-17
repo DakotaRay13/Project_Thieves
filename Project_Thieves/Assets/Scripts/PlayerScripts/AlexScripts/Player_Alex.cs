@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class Player_Alex : Player
 {
     public bool isBlocking = false;
+    public int MAX_STAMINA;
+    public int STAMINA;
 
     public override void LightAttack(InputAction.CallbackContext context)
     {

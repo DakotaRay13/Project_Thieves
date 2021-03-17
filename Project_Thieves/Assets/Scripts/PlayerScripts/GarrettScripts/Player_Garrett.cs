@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 
 public class Player_Garrett : Player
 {
-    public float AMMO;
-    public float MAX_AMMO;
+    public int AMMO;
+    public int MAX_AMMO;
     
     //The point where Garrett can shoot from
     public Transform shootPoint;
@@ -38,18 +38,19 @@ public class Player_Garrett : Player
 
     public override void HeavyAttack(InputAction.CallbackContext context)
     {
-        if (!movementLock || (isAttacking && canAttack))
-            if (context.started)
-            {
-                if (anim.direction == -moveInput) anim.TurnCharacter();
-                anim.anim.Play("FireShotgun");
-                if (isAttacking)
+        if(AMMO > 0f)
+            if (!movementLock || (isAttacking && canAttack))
+                if (context.started)
                 {
-                    StopAllCoroutines();
+                    if (anim.direction == -moveInput) anim.TurnCharacter();
+                    anim.anim.Play("FireShotgun");
+                    if (isAttacking)
+                    {
+                        StopAllCoroutines();
+                    }
+                    StartCoroutine(WeaponAnim(2.5f));
+                    FireWeapon(equippedGun);
                 }
-                StartCoroutine(WeaponAnim(2.5f));
-                FireWeapon(equippedGun);
-            }
     }
 
     public override void DefensiveAction(InputAction.CallbackContext context)
@@ -121,12 +122,9 @@ public class Player_Garrett : Player
 
     public void FireWeapon(Weapon_Gun gun)
     {
-        if(gun.ammoCost <= AMMO)
-        {
-            gun.Fire(shootPoint.position, anim.direction);
-            AMMO -= gun.ammoCost;
-        }
-        //Else, play a click sound effect
+        gun.Fire(shootPoint.position, anim.direction);
+        AMMO -= gun.ammoCost;
+        if (AMMO < 0) AMMO = 0;
     }
 
     public IEnumerator WeaponAnim(float time)

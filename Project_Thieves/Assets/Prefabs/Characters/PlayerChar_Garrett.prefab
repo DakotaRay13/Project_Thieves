@@ -78,6 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30cba8a5c4538d54184d10d33132cd30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MAX_HEALTH: 100
+  HEALTH: 100
   defense: 0
   movementLock: 0
   isAttacking: 0
@@ -93,6 +95,8 @@ MonoBehaviour:
   maxJumpHeight: 4
   minJumpHeight: 1
   jumpTime: 0.4
+  AMMO: 25
+  MAX_AMMO: 25
   shootPoint: {fileID: 6569369663291057409}
   nailGun: {fileID: -2301367147277497403, guid: e4af75bc9be2be241afbfc940d8c3597, type: 3}
   equippedGun: {fileID: -2301367147277497403, guid: de915c06f2eff0c49964378047365856, type: 3}

@@ -7,8 +7,8 @@ using UnityEngine.InputSystem;
 public abstract class Player : MonoBehaviour
 {
     //Player Health
-    public static float MAX_HEALTH;
-    public static float HEALTH;
+    public float MAX_HEALTH;
+    public float HEALTH;
 
     //Player character's Defense
     public float defense;
@@ -109,6 +109,13 @@ public abstract class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(HEALTH <= 0f)
+        {
+            anim.anim.SetBool("isDead", true);
+            controller.enabled = false;
+            this.enabled = false;
+        }
+
         //set velocity Y to 0 if has collisions
         if (controller.collisions.above || controller.collisions.below)
         {

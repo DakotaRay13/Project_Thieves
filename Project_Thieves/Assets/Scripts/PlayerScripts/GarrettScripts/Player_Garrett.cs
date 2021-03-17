@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 
 public class Player_Garrett : Player
 {
-    public static float AMMO;
+    public float AMMO;
+    public float MAX_AMMO;
     
     //The point where Garrett can shoot from
     public Transform shootPoint;

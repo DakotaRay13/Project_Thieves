@@ -288,6 +288,8 @@ public abstract class Player : MonoBehaviour
      * BASIC ACTIONS
      ***********************************************************************/
 
+    public abstract void TakeDamage(int damage);
+
     public abstract void LightAttack(InputAction.CallbackContext context);
     public abstract void HeavyAttack(InputAction.CallbackContext context);
     public abstract void DefensiveAction(InputAction.CallbackContext context);

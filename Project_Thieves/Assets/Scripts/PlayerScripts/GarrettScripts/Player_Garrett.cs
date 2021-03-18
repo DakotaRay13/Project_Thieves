@@ -152,4 +152,9 @@ public class Player_Garrett : Player
             return 0f;
         }
     }
+
+    public override void TakeDamage(int damage)
+    {
+        if (!isDodging) HEALTH -= damage;
+    }
 }

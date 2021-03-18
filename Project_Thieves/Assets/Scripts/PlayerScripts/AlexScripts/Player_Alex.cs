@@ -94,4 +94,9 @@ public class Player_Alex : Player
         movementLock = false;
         anim.anim.SetBool("isBlocking", false);
     }
+
+    public override void TakeDamage(int damage)
+    {
+        if (!isBlocking) HEALTH -= damage;
+    }
 }

@@ -180,6 +180,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1565d8fde420a074ea1608ddb8f5af60, type: 3}
+--- !u!1 &395014309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 395014310}
+  m_Layer: 0
+  m_Name: GroundAndWallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &395014310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395014309}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.75, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 974952754}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &460750451
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,10 +480,13 @@ GameObject:
   m_Component:
   - component: {fileID: 974952754}
   - component: {fileID: 974952755}
+  - component: {fileID: 974952759}
+  - component: {fileID: 974952757}
   - component: {fileID: 974952753}
   - component: {fileID: 974952752}
   - component: {fileID: 974952751}
   - component: {fileID: 974952756}
+  - component: {fileID: 974952758}
   m_Layer: 0
   m_Name: tst_Enemy
   m_TagString: Enemy
@@ -534,9 +567,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 974952750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.06, y: 0.3, z: 0}
+  m_LocalPosition: {x: 4.54, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 395014310}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -575,6 +609,72 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &974952757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974952750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61dfa2340964f849b740d4f58d85198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states: 0
+  rb: {fileID: 974952756}
+  turnCheck: {fileID: 395014310}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 256
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  speed: 3.3
+  controller: {fileID: 0}
+--- !u!61 &974952758
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974952750}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2}
+  m_EdgeRadius: 0
+--- !u!114 &974952759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974952750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b18547b137e32574a94bd2336445da69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  horizontalRayCount: 4
+  verticalRayCount: 4
 --- !u!1 &1095421609
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,7 +996,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7763967257062842054, guid: 758a7901ce93c9248a7feac9bb4a0ffd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -15.83
       objectReference: {fileID: 0}
     - target: {fileID: 7763967257062842054, guid: 758a7901ce93c9248a7feac9bb4a0ffd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2994,6 +3094,56 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 4, y: 2, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 7
+      m_TileSpriteIndex: 3
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 5, y: 2, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 7
+      m_TileSpriteIndex: 3
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 6, y: 2, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 7
+      m_TileSpriteIndex: 3
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 7, y: 2, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 7
+      m_TileSpriteIndex: 3
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 8, y: 2, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 7
+      m_TileSpriteIndex: 3
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 16, y: 2, z: 0}
     second:
       serializedVersion: 2
@@ -3530,7 +3680,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 153
+  - m_RefCount: 158
     m_Data: {fileID: 11400000, guid: 21095cac5c00a934d88cfb7966c214cf, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -3541,7 +3691,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 153
+  - m_RefCount: 158
     m_Data: {fileID: 6845324643507297050, guid: 301bf09d4a2ae304d9a7e1d971238fd5, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -3558,7 +3708,7 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileMatrixArray:
-  - m_RefCount: 153
+  - m_RefCount: 158
     m_Data:
       e00: 1
       e01: 0
@@ -3577,7 +3727,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 153
+  - m_RefCount: 158
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 0
     m_Data: {r: 2.5106e-41, g: 2.5106e-41, b: 2.5106e-41, a: 2.5106e-41}
@@ -3677,6 +3827,22 @@ CompositeCollider2D:
         Y: 39999900
       - X: 160000000
         Y: -10000000
+    - - X: 90000100
+        Y: 19999959
+      - X: 90000100
+        Y: 30000041
+      - X: 90000041
+        Y: 30000100
+      - X: 39999959
+        Y: 30000100
+      - X: 39999900
+        Y: 30000041
+      - X: 39999900
+        Y: 19999959
+      - X: 39999959
+        Y: 19999900
+      - X: 90000041
+        Y: 19999900
     - - X: -79999900
         Y: -470000041
       - X: -79999900
@@ -3783,6 +3949,10 @@ CompositeCollider2D:
       - {x: -17, y: -0.9999706}
       - {x: -16.999971, y: 11}
       - {x: 15.99999, y: 10.99997}
+    - - {x: 8.999974, y: 1.99999}
+      - {x: 8.999974, y: 3.00001}
+      - {x: 3.99999, y: 2.9999747}
+      - {x: 4.0000253, y: 1.99999}
     - - {x: -8.000026, y: -47.00001}
       - {x: -8.000026, y: -45.999992}
       - {x: -8.99999, y: -45.99996}
@@ -4068,15 +4238,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1577704646103211760, guid: 6856bb9512bedb1449d154526bafb660, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0.41509432
+      value: 0.016159993
       objectReference: {fileID: 0}
     - target: {fileID: 1577704646103211760, guid: 6856bb9512bedb1449d154526bafb660, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0.41509432
+      value: 0.3018868
       objectReference: {fileID: 0}
     - target: {fileID: 1577704646103211760, guid: 6856bb9512bedb1449d154526bafb660, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0.41509432
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1577704646103211761, guid: 6856bb9512bedb1449d154526bafb660, type: 3}
       propertyPath: m_LocalPosition.x

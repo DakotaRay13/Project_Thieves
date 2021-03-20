@@ -80,7 +80,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MAX_HEALTH: 100
   HEALTH: 100
-  defense: 0
   movementLock: 0
   isAttacking: 0
   canAttack: 1
@@ -92,7 +91,7 @@ MonoBehaviour:
   wasGrounded: 1
   bufferTime: 0.1
   cameraDealyTime: 0.1
-  maxJumpHeight: 4
+  maxJumpHeight: 4.5
   minJumpHeight: 1
   jumpTime: 0.4
   AMMO: 25

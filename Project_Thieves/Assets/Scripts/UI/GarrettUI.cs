@@ -8,9 +8,6 @@ public class GarrettUI : MonoBehaviour
     public Image healthBar;
     public Image ammoBar;
 
-    public Text healthText;
-    public Text ammoText;
-
     float minPos = -221f;
     float maxPos = 181.5f;
 
@@ -36,9 +33,6 @@ public class GarrettUI : MonoBehaviour
 
         healthBar.GetComponent<RectTransform>().position = new Vector2(newHealthPos, healthBar.GetComponent<RectTransform>().position.y);
         ammoBar.GetComponent<RectTransform>().position = new Vector2(newAmmoPos, ammoBar.GetComponent<RectTransform>().position.y);
-
-        healthText.text = garrett.HEALTH.ToString();
-        ammoText.text = garrett.AMMO.ToString();
     }
 
     float NewBarPos(float currPercent)

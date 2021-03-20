@@ -546,7 +546,7 @@ GameObject:
   - component: {fileID: 7105167068992863899}
   - component: {fileID: 5409464586977835732}
   m_Layer: 5
-  m_Name: Portrait_Garrett
+  m_Name: Portrait_Alex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -561,7 +561,7 @@ RectTransform:
   m_GameObject: {fileID: 5870357737418595182}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3478237105918953553}
   m_RootOrder: 0

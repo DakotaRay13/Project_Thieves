@@ -17,7 +17,11 @@ public class EnemyBehaviour : MonoBehaviour
     public LayerMask groundMask;
     public LayerMask playerMask;
 
+    public Vector3 velocity;
     public float speed;
+    public float accelTime = 0.1f;
+    float velocityXsmoothing;
+    public float gravity;
     private float direction = 1f;
 
     public Controller2D controller;
@@ -58,7 +62,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void MoveCharacter(float x)
     {
-        rb.velocity = x * Vector2.right * direction;
+        //rb.velocity = x * Vector2.right * direction;
+        velocity.x = Mathf.SmoothDamp(velocity.x, x * direction, ref velocityXsmoothing, accelTime);
+        velocity.y = gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 
     public void TurnEnemy()
@@ -69,21 +76,27 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void CheckForWall()
     {
-        RaycastHit2D hit = Physics2D.Raycast(turnCheck.position, Vector2.right, 0.2f, groundMask);
-        if (hit)
+        if(controller.collisions.below || controller.collisions.grounded)
         {
-            TurnEnemy();
-            Debug.Log("Hit a wall.");
+            RaycastHit2D hit = Physics2D.Raycast(turnCheck.position, Vector2.right, 0.2f, groundMask);
+            if (hit)
+            {
+                TurnEnemy();
+                Debug.Log("Hit a wall.");
+            }
         }
     }
 
     public void CheckForGround()
     {
-        RaycastHit2D hit = Physics2D.Raycast(turnCheck.position, Vector2.down, 0.2f, groundMask);
-        if (!hit)
+        if (controller.collisions.below || controller.collisions.grounded)
         {
-            TurnEnemy();
-            Debug.Log("Hit an edge.");
+            RaycastHit2D hit = Physics2D.Raycast(turnCheck.position, Vector2.down, 0.2f, groundMask);
+            if (!hit)
+            {
+                TurnEnemy();
+                Debug.Log("Hit a ledge.");
+            }
         }
     }
 

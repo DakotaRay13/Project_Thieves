@@ -126,5 +126,27 @@ public class Player_Alex : Player
             HEALTH -= damage;
             if (HEALTH > 0f) StartCoroutine(HitStun());
         }
+        else if (isBlocking && !anim.anim.GetBool("Invinsibility Frames"))
+        {
+            if(STAMINA > 0)
+            {
+                STAMINA = Mathf.Clamp(STAMINA - (damage / 2), 0, MAX_STAMINA);
+                StartCoroutine(BlockInvinsibility());
+            }
+            else
+            {
+                StopBlock();
+                TakeDamage(damage);
+            }
+        }
+    }
+
+    public IEnumerator BlockInvinsibility()
+    {
+        anim.anim.SetBool("Invinsibility Frames", true);
+
+        yield return new WaitForSeconds(1f);
+
+        anim.anim.SetBool("Invinsibility Frames", false);
     }
 }

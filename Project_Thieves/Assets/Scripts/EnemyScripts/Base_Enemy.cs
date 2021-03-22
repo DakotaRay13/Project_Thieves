@@ -13,6 +13,7 @@ public class Base_Enemy : MonoBehaviour
         if(health <= 0f)
         {
             Destroy(gameObject);
+            FindObjectOfType<GameManager>().DropPickUp(transform.position);
         }
         else if (damage >= 5)
         {

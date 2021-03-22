@@ -130,6 +130,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7862958351900382292, guid: 1565d8fde420a074ea1608ddb8f5af60, type: 3}
+      propertyPath: pickUp_Health
+      value: 
+      objectReference: {fileID: 7784877927959218774, guid: 95316442b4aba7449b9590ee94f9e392, type: 3}
+    - target: {fileID: 7862958351900382292, guid: 1565d8fde420a074ea1608ddb8f5af60, type: 3}
+      propertyPath: pickUp_Stamina
+      value: 
+      objectReference: {fileID: 4051146995319603041, guid: 3945dc9363d588b4cabc55374d040cbb, type: 3}
+    - target: {fileID: 7862958351900382292, guid: 1565d8fde420a074ea1608ddb8f5af60, type: 3}
+      propertyPath: pickUp_Ammo
+      value: 
+      objectReference: {fileID: 1761240620440918251, guid: c41e92e3ad15bfc4d9f0e298c1e3cc41, type: 3}
     - target: {fileID: 7862958351900382293, guid: 1565d8fde420a074ea1608ddb8f5af60, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -1264,11 +1276,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7179782674506080463, guid: acb9230ca0a192948b271d4ecc926514, type: 3}
       propertyPath: health
-      value: 1000
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7179782674506080466, guid: acb9230ca0a192948b271d4ecc926514, type: 3}
       propertyPath: m_Name
       value: tst_Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7179782674506080466, guid: acb9230ca0a192948b271d4ecc926514, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acb9230ca0a192948b271d4ecc926514, type: 3}

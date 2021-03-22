@@ -20,6 +20,8 @@ public class Player_Garrett : Player
     public bool isDodging = false;
     public float dodgeSpeed = 9f;
 
+    Coroutine currentAttack = null;
+
     public override void LightAttack(InputAction.CallbackContext context)
     {
         if(!movementLock || (isAttacking && canAttack))
@@ -29,9 +31,9 @@ public class Player_Garrett : Player
                 anim.anim.Play("FireNailGun");
                 if (isAttacking)
                 {
-                    StopAllCoroutines();
+                    StopAttack();
                 }
-                StartCoroutine(WeaponAnim(0.3f));
+                currentAttack = StartCoroutine(WeaponAnim(0.3f));
                 FireWeapon(nailGun);
             }
     }
@@ -46,9 +48,9 @@ public class Player_Garrett : Player
                     anim.anim.Play("FireShotgun");
                     if (isAttacking)
                     {
-                        StopAllCoroutines();
+                        StopAttack();
                     }
-                    StartCoroutine(WeaponAnim(2.5f));
+                    currentAttack = StartCoroutine(WeaponAnim(2.5f));
                     FireWeapon(equippedGun);
                 }
     }
@@ -80,14 +82,13 @@ public class Player_Garrett : Player
         {
             if ((anim.jumping && wasGrounded))
             {
-                StopAllCoroutines();
-                isAttacking = false;
-                movementLock = false;
-            }  
-            else if(isDodging)
+                StopAttack();
+            }
+            else if (isDodging)
             {
-                StopAllCoroutines();
+                StopCoroutine(currentAttack);
                 isAttacking = false;
+                canAttack = true;
             }
         }
     }
@@ -140,6 +141,15 @@ public class Player_Garrett : Player
         canAttack = true;
     }
 
+    public void StopAttack()
+    {
+        if (currentAttack != null)
+            StopCoroutine(currentAttack);
+        isAttacking = false;
+        movementLock = false;
+        canAttack = true;
+    }
+
     //Get the Target velocity for if the movement lock is on;
     public override float GetTargetVelocity()
     {
@@ -155,6 +165,11 @@ public class Player_Garrett : Player
 
     public override void TakeDamage(int damage)
     {
-        if (!isDodging) HEALTH -= damage;
+        if (!isDodging && !anim.anim.GetBool("Invinsibility Frames"))
+        {
+            StopAttack();
+            HEALTH -= damage;
+            if(HEALTH > 0f) StartCoroutine(HitStun());
+        }
     }
 }

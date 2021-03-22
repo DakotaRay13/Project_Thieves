@@ -14,12 +14,25 @@ public class Base_Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        else if (damage >= 5)
+        {
+            if(GetComponent<EnemyBehaviour>())
+            {
+                StartCoroutine(GetComponent<EnemyBehaviour>().HitStun(0.25f));
+            }
+        }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerStay2D(Collider2D col)
     {
         if(col.tag == "Player")
         {
+            if (col.gameObject.GetComponent<Player_Alex>())
+                if (col.gameObject.GetComponent<Player_Alex>().isBlocking)
+                {
+                    StartCoroutine(GetComponent<EnemyBehaviour>().HitStun(0.35f));
+                }
+
             col.gameObject.GetComponent<Player>().TakeDamage(damage);
         }
     }

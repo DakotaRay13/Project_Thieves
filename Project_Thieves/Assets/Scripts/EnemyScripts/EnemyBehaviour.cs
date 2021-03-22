@@ -19,10 +19,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     public Vector3 velocity;
     public float speed;
+    public float hitStunSpeed;
     public float accelTime = 0.1f;
     float velocityXsmoothing;
     public float gravity;
     private float direction = 1f;
+
+    public bool inHitStun = false;
 
     public Controller2D controller;
 
@@ -33,29 +36,37 @@ public class EnemyBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-        CheckForPlayer();
-
-        switch (states)
+        if (inHitStun)
         {
-            case (EnemyStates.PATROL):
-            {
-                CheckForWall();
-                CheckForGround();
-                MoveCharacter(speed);
-                break;
-            }
+            MoveCharacter(hitStunSpeed);
+        }
+        else
+        {
+            CheckForPlayer();
 
-            case (EnemyStates.PURSUIT):
+            switch (states)
             {
-                FindPlayer(FindObjectOfType<Player>().transform.position);
-
-                if(Mathf.Abs(FindObjectOfType<Player>().transform.position.x - transform.position.x) >= 0.3f)
-                    MoveCharacter(speed * 1.5f);
-                else
+                case (EnemyStates.PATROL):
                 {
-                    rb.velocity = Vector2.zero;
+                    CheckForWall();
+                    CheckForGround();
+                    MoveCharacter(speed);
+                    break;
                 }
-                break;
+
+                case (EnemyStates.PURSUIT):
+                {
+                    FindPlayer(FindObjectOfType<Player>().transform.position);
+
+                        if (Mathf.Abs(FindObjectOfType<Player>().transform.position.x - transform.position.x) >= 0.3f 
+                            && FindObjectOfType<Player>().anim.anim.GetBool("isHit") == false)
+                        MoveCharacter(speed * 1.5f);
+                    else
+                    {
+                        MoveCharacter(0f);
+                    }
+                    break;
+                }
             }
         }
     }
@@ -104,7 +115,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         //RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * direction, 3f, playerMask);
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 6f, Vector2.right, 0f, playerMask);
-        if(hit)
+        if(hit) 
         {
             states = EnemyStates.PURSUIT;
         }
@@ -126,5 +137,14 @@ public class EnemyBehaviour : MonoBehaviour
             direction = 1f;
         }
         transform.localScale = new Vector3(direction, transform.localScale.y, transform.localScale.z);
+    }
+
+    public IEnumerator HitStun(float time)
+    {
+        inHitStun = true;
+
+        yield return new WaitForSeconds(time);
+
+        inHitStun = false;
     }
 }

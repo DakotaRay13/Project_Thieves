@@ -60,6 +60,8 @@ public abstract class Player : MonoBehaviour
     public float minJumpHeight = 1f;
     public float jumpTime = 0.4f;
 
+    public bool inHitStun = false;
+
     //private void Awake()
     //{
     //    inputActions = new PlayerInputControls();
@@ -167,7 +169,11 @@ public abstract class Player : MonoBehaviour
 
         //float moveInput = inputActions.Platforming.Move.ReadValue<float>();
         float targetVelocityX;
-        if (movementLock && (controller.collisions.below || controller.collisions.grounded))
+        if(anim.anim.GetBool("isHit") == true)
+        {
+            targetVelocityX = 5f * -anim.direction;
+        }
+        else if (movementLock && (controller.collisions.below || controller.collisions.grounded))
         {
             targetVelocityX = GetTargetVelocity();
         }
@@ -178,7 +184,7 @@ public abstract class Player : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         //Check Animations
-        anim.CheckAnims(!movementLock || (movementLock && (!controller.collisions.below || !controller.collisions.grounded))? moveInput : anim.direction, velocity, controller.collisions.below || controller.collisions.grounded, isCrouched, isAttacking);
+        anim.CheckAnims(!movementLock? moveInput : anim.direction, velocity, controller.collisions.below || controller.collisions.grounded, isCrouched, isAttacking);
     }
     
     //Get the input value from the move input
@@ -282,6 +288,26 @@ public abstract class Player : MonoBehaviour
         cameraControlDelay = true;
         cameraControlDelayStart = false;
 
+    }
+
+    public IEnumerator HitStun()
+    {
+        anim.anim.Play("I_Frames");
+        anim.anim.SetBool("Invinsibility Frames", true);
+
+        anim.anim.SetBool("isHit", true);
+        movementLock = true;
+        canAttack = false;
+
+        yield return new WaitForSeconds(0.5f);
+
+        anim.anim.SetBool("isHit", false);
+        movementLock = false;
+        canAttack = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        anim.anim.SetBool("Invinsibility Frames", false);
     }
 
     /************************************************************************

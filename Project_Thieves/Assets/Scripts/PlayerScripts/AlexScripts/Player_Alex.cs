@@ -9,19 +9,21 @@ public class Player_Alex : Player
     public int MAX_STAMINA;
     public int STAMINA;
 
+    Coroutine currentAttack = null;
+
     public override void LightAttack(InputAction.CallbackContext context)
     {
-        if (!movementLock || (isAttacking && canAttack))
+        if ((!movementLock || (isAttacking && canAttack)) && !anim.anim.GetBool("isHit"))
             if (context.started)
             {
                 if (anim.direction == -moveInput) anim.TurnCharacter();
-                anim.anim.Play("LightSwing");
+                anim.anim.SetTrigger("LightAttack");
 
                 if (isAttacking)
                 {
-                    StopAllCoroutines();
+                    StopAttack();
                 }
-                StartCoroutine(WeaponAnim(0.8f));
+                currentAttack = StartCoroutine(WeaponAnim(0.4f));
 
                 /*
                 movementLock = true;
@@ -33,17 +35,17 @@ public class Player_Alex : Player
 
     public override void HeavyAttack(InputAction.CallbackContext context)
     {
-        if (!movementLock || (isAttacking && canAttack))
+        if ((!movementLock || (isAttacking && canAttack)) && !anim.anim.GetBool("isHit"))
             if (context.started)
             {
                 if (anim.direction == -moveInput) anim.TurnCharacter();
-                anim.anim.Play("HeavySwing");
+                anim.anim.SetTrigger("HeavyAttack");
 
                 if (isAttacking)
                 {
-                    StopAllCoroutines();
+                    StopAttack();
                 }
-                StartCoroutine(WeaponAnim(1.0f));
+                currentAttack = StartCoroutine(WeaponAnim(1.0f));
 
             }
     }
@@ -62,6 +64,18 @@ public class Player_Alex : Player
         if (context.canceled) StopBlock();
     }
 
+    private void LateUpdate()
+    {
+        if(isAttacking || isBlocking)
+        {
+            if ((anim.jumping && wasGrounded))
+            {
+                StopAttack();
+                StopBlock();
+            }
+        }
+    }
+
     public override float GetTargetVelocity()
     {
         return 0f;
@@ -75,6 +89,15 @@ public class Player_Alex : Player
 
         yield return new WaitForSeconds(time);
 
+        isAttacking = false;
+        movementLock = false;
+        canAttack = true;
+    }
+
+    public void StopAttack()
+    {
+        if(currentAttack != null)
+            StopCoroutine(currentAttack);
         isAttacking = false;
         movementLock = false;
         canAttack = true;
@@ -97,6 +120,11 @@ public class Player_Alex : Player
 
     public override void TakeDamage(int damage)
     {
-        if (!isBlocking) HEALTH -= damage;
+        if (!isBlocking && !anim.anim.GetBool("Invinsibility Frames"))
+        {
+            StopAttack();
+            HEALTH -= damage;
+            if (HEALTH > 0f) StartCoroutine(HitStun());
+        }
     }
 }

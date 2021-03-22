@@ -94,6 +94,7 @@ MonoBehaviour:
   maxJumpHeight: 4.5
   minJumpHeight: 1
   jumpTime: 0.4
+  inHitStun: 0
   AMMO: 25
   MAX_AMMO: 25
   shootPoint: {fileID: 6569369663291057409}
@@ -207,19 +208,7 @@ MonoBehaviour:
     m_ActionId: ce850528-5674-461f-bd33-81456d871af2
     m_ActionName: Platforming/Move[/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2052515177583207769}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: Crouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 58dd1907-7eeb-4ed3-a4ac-29a0780f1b8c
     m_ActionName: Platforming/Crouch[/Keyboard/s]
   - m_PersistentCalls:

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5484555701244897511}
   - component: {fileID: 5484555701244897510}
   - component: {fileID: 5484555701244897509}
-  - component: {fileID: 5484555701244897528}
+  - component: {fileID: -8767362396447268710}
   m_Layer: 5
   m_Name: UI_Button
   m_TagString: Untagged
@@ -133,7 +133,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!95 &5484555701244897528
+--- !u!95 &-8767362396447268710
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -143,7 +143,7 @@ Animator:
   m_GameObject: {fileID: 5484555701244897507}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6804221669ba0654c8ad71a5046991b7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3e2cc50c7331c0c46815cd5138921ad8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

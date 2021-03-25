@@ -77,6 +77,7 @@ public class EnemyBehaviour : MonoBehaviour
         velocity.x = Mathf.SmoothDamp(velocity.x, x * direction, ref velocityXsmoothing, accelTime);
         velocity.y = gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        GetComponentInChildren<Animator>().SetFloat("WalkSpeed", Mathf.Abs(velocity.y) != 0f && !inHitStun? Mathf.Abs(velocity.x * 0.75f) : 0f);
     }
 
     public void TurnEnemy()

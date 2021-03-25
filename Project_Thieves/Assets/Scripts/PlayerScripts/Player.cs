@@ -110,10 +110,7 @@ public abstract class Player : MonoBehaviour
     {
         if(HEALTH <= 0f)
         {
-            anim.anim.SetTrigger("isDead");
-            controller.enabled = false;
-            this.enabled = false;
-            GetComponent<PlayerInput>().enabled = false;
+            Death();
         }
 
         //set velocity Y to 0 if has collisions
@@ -308,6 +305,17 @@ public abstract class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         anim.anim.SetBool("Invinsibility Frames", false);
+    }
+
+    public void Death()
+    {
+        anim.anim.SetTrigger("isDead");
+
+        FindObjectOfType<GameManager>().Death();
+
+        controller.enabled = false;
+        this.enabled = false;
+        GetComponent<PlayerInput>().enabled = false;
     }
 
     /************************************************************************

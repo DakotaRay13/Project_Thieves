@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,7 +10,10 @@ public class GameManager : MonoBehaviour
     public GameObject pickUp_Health;
     public GameObject pickUp_Stamina;
     public GameObject pickUp_Ammo;
-    
+
+    public LayerMask[] deathLayers;
+    public GameObject deathUI;
+
     void Start()
     {
         //Load the correct UI
@@ -62,5 +64,19 @@ public class GameManager : MonoBehaviour
                 Instantiate(pickUp_Stamina, spawnLocation, pickUp_Stamina.transform.rotation);
             }
         }
+    }
+
+    public void Death()
+    {
+        FindObjectOfType<Camera>().cullingMask = deathLayers[0] + deathLayers[1];
+
+        if (GameObject.Find("PlayerUI_Garrett(Clone)")) GameObject.Find("PlayerUI_Garrett(Clone)").SetActive(false);
+        else if (GameObject.Find("PlayerUI_Alex(Clone)"))  GameObject.Find("PlayerUI_Alex(Clone)").SetActive(false);
+    }
+
+    public void CreateDeathUI()
+    {
+        GameObject canvas = FindObjectOfType<Canvas>().gameObject;
+        Instantiate(deathUI, canvas.transform);
     }
 }

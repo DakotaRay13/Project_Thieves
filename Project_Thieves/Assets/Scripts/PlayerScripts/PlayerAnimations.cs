@@ -91,6 +91,11 @@ public class PlayerAnimations : MonoBehaviour
         GetComponentInParent<Player>().canAttack = true;
     }
 
+    public void PullUpDeathUI()
+    {
+        FindObjectOfType<GameManager>().CreateDeathUI();
+    }
+
     ///////////////////////////////////////////////////
     ///GARRETT SPECIFIC
     ///

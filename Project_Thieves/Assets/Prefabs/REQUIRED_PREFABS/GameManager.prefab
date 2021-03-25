@@ -48,6 +48,8 @@ MonoBehaviour:
   pickUp_Health: {fileID: 7784877927959218774, guid: 95316442b4aba7449b9590ee94f9e392, type: 3}
   pickUp_Stamina: {fileID: 4051146995319603041, guid: 3945dc9363d588b4cabc55374d040cbb, type: 3}
   pickUp_Ammo: {fileID: 1761240620440918251, guid: c41e92e3ad15bfc4d9f0e298c1e3cc41, type: 3}
+  pauseMenu: {fileID: 7036289851914095271, guid: c822bc74420fb2b4da5dd972cbcee955, type: 3}
+  paused: 0
   deathLayers:
   - serializedVersion: 2
     m_Bits: 512

@@ -106,9 +106,11 @@ public abstract class Player : MonoBehaviour
     
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if(HEALTH <= 0f)
+        //if (Time.timeScale == 0f) return;
+
+        if (HEALTH <= 0f)
         {
             Death();
         }
@@ -339,6 +341,39 @@ public abstract class Player : MonoBehaviour
         {
             isCrouched = false;
         }
+    }
+
+    public void PauseGame(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            GameManager gm = FindObjectOfType<GameManager>();
+
+            if (!gm.paused)
+            {
+                gm.PauseGame(true);
+                GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+            }
+        }
+    }
+
+    public void UnpauseGame(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            GameManager gm = FindObjectOfType<GameManager>();
+
+            if (gm.paused)
+            {
+                gm.PauseGame(false);
+                SetInputToPlatforming();
+            }
+        }
+    }
+
+    public void SetInputToPlatforming()
+    {
+        GetComponent<PlayerInput>().SwitchCurrentActionMap("Platforming");
     }
 
     public abstract float GetTargetVelocity();

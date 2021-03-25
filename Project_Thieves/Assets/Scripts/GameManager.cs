@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public GameObject pickUp_Stamina;
     public GameObject pickUp_Ammo;
 
+    public GameObject pauseMenu;
+    public bool paused;
+
     public LayerMask[] deathLayers;
     public GameObject deathUI;
 
@@ -63,6 +66,28 @@ public class GameManager : MonoBehaviour
             {
                 Instantiate(pickUp_Stamina, spawnLocation, pickUp_Stamina.transform.rotation);
             }
+        }
+    }
+
+    public void PauseGame(bool set)
+    {
+        GameObject canvas = FindObjectOfType<Canvas>().gameObject;
+
+        //Pause the Game
+        if (set && !paused)
+        {
+            Time.timeScale = 0f;
+            Instantiate(pauseMenu, canvas.transform);
+            paused = set;
+        }
+
+        //Unpause the game
+        else if (!set && paused)
+        {
+            Time.timeScale = 1f;
+            Destroy(GameObject.Find("PauseMenuPanel(Clone)"));
+            FindObjectOfType<Player>().SetInputToPlatforming();
+            paused = set;
         }
     }
 

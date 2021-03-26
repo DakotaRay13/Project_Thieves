@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using Cinemachine;
 
 public class RoomCamBarrier : MonoBehaviour
@@ -9,6 +10,12 @@ public class RoomCamBarrier : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(GetPlayer());
+    }
+
+    public IEnumerator GetPlayer()
+    {
+        yield return new WaitForEndOfFrame();
         virtualCam.GetComponent<CinemachineVirtualCamera>().Follow = GameObject.FindGameObjectWithTag("Player").transform;
     }
 

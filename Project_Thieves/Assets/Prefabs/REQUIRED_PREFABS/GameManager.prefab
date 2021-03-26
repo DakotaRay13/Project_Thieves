@@ -45,6 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   garrettUI: {fileID: 2023822497425438217, guid: 15b32372cc7845b4987452530544a8ab, type: 3}
   alexUI: {fileID: 2023822497425438217, guid: c3d14657279b4f54a8c005b658868d08, type: 3}
+  player_Alex: {fileID: 7763967257062841915, guid: 758a7901ce93c9248a7feac9bb4a0ffd, type: 3}
+  player_Garrett: {fileID: 7763967257062841915, guid: 02b080e0962797e47a111b288c3b0ce4, type: 3}
   pickUp_Health: {fileID: 7784877927959218774, guid: 95316442b4aba7449b9590ee94f9e392, type: 3}
   pickUp_Stamina: {fileID: 4051146995319603041, guid: 3945dc9363d588b4cabc55374d040cbb, type: 3}
   pickUp_Ammo: {fileID: 1761240620440918251, guid: c41e92e3ad15bfc4d9f0e298c1e3cc41, type: 3}

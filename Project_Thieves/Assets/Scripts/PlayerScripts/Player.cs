@@ -80,6 +80,8 @@ public abstract class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetInputToPlatforming();
+
         controller = GetComponent<Controller2D>();
 
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(jumpTime, 2);

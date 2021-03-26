@@ -24,11 +24,13 @@ public class PauseMenu : MonoBehaviour
 
     public void Retry()
     {
-        Debug.Log("Retry Button Pressed");
+        FindObjectOfType<GameManager>().PauseGame(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void QuitToMenu()
     {
-        Debug.Log("Quit To Menu Pressed");
+        FindObjectOfType<GameManager>().PauseGame(false);
+        SceneManager.LoadScene("MainMenu");
     }
 }

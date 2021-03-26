@@ -4198,46 +4198,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1168755512850750014, guid: 65ee007bf2944ae40a1441118cb54859, type: 3}
-      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
-      value: -18
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168755512850750014, guid: 65ee007bf2944ae40a1441118cb54859, type: 3}
-      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168755512850750014, guid: 65ee007bf2944ae40a1441118cb54859, type: 3}
-      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168755512850750014, guid: 65ee007bf2944ae40a1441118cb54859, type: 3}
-      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168755512850750014, guid: 65ee007bf2944ae40a1441118cb54859, type: 3}
-      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].y
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168755512850750014, guid: 65ee007bf2944ae40a1441118cb54859, type: 3}
-      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168755512850750014, guid: 65ee007bf2944ae40a1441118cb54859, type: 3}
-      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
-      value: -18
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168755512850750014, guid: 65ee007bf2944ae40a1441118cb54859, type: 3}
-      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168755513415055501, guid: 65ee007bf2944ae40a1441118cb54859, type: 3}
-      propertyPath: m_Follow
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168755513415055507, guid: 65ee007bf2944ae40a1441118cb54859, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65ee007bf2944ae40a1441118cb54859, type: 3}
 --- !u!1001 &1577704646826931908

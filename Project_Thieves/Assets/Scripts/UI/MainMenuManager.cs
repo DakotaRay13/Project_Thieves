@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -46,7 +47,7 @@ public class MainMenuManager : MonoBehaviour
     public void SelectCharacter(GameObject character)
     {
         GameManager.CHOSEN_CHARACTER = character;
-        SceneManager.LoadScene("DemoLevel");
+        StartCoroutine(ChangeLevel());
     }
 
     public void BackButton()
@@ -55,5 +56,14 @@ public class MainMenuManager : MonoBehaviour
         characterSelect.SetActive(false);
         howToPlayMenu.SetActive(false);
         FirstEnable(btn_StartGame);
+    }
+
+    public IEnumerator ChangeLevel()
+    {
+        GameObject.Find("ScreenTransition").GetComponent<Animator>().Play("FadeScreenOut");
+
+        yield return new WaitForSeconds(1.3f);
+
+        SceneManager.LoadScene("DemoLevel");
     }
 }

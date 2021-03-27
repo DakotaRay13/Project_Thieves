@@ -31,6 +31,6 @@ public class PauseMenu : MonoBehaviour
     public void QuitToMenu()
     {
         FindObjectOfType<GameManager>().PauseGame(false);
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("ThanksForPlaying");
     }
 }

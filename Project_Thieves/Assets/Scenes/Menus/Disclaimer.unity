@@ -434,15 +434,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1348519119027451765, guid: 4d83acfd5388c20478f0ad8756712abb, type: 3}
       propertyPath: nextScene
-      value: MainMenu
+      value: Intro
       objectReference: {fileID: 0}
     - target: {fileID: 2589469784912135430, guid: 4d83acfd5388c20478f0ad8756712abb, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4294967295
+      value: 3774873599
       objectReference: {fileID: 0}
     - target: {fileID: 2589469784912135430, guid: 4d83acfd5388c20478f0ad8756712abb, type: 3}
       propertyPath: m_text
-      value: Scatterbrain Games presents...
+      value: '-Disclaimer-
+
+        The following game is in development. Gameplay
+        may differ from the final product.'
       objectReference: {fileID: 0}
     - target: {fileID: 2589469784912135430, guid: 4d83acfd5388c20478f0ad8756712abb, type: 3}
       propertyPath: m_fontSize
@@ -451,6 +454,10 @@ PrefabInstance:
     - target: {fileID: 2589469784912135430, guid: 4d83acfd5388c20478f0ad8756712abb, type: 3}
       propertyPath: m_fontSizeBase
       value: 42.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589469784912135430, guid: 4d83acfd5388c20478f0ad8756712abb, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2589469784912135431, guid: 4d83acfd5388c20478f0ad8756712abb, type: 3}
       propertyPath: m_AnchoredPosition.y

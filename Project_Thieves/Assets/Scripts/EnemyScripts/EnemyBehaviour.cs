@@ -23,7 +23,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float accelTime = 0.1f;
     float velocityXsmoothing;
     public float gravity;
-    private float direction = 1f;
+    [SerializeField] float direction = 1f;
 
     public bool inHitStun = false;
 

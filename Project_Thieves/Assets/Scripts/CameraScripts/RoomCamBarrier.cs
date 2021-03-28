@@ -7,10 +7,12 @@ public class RoomCamBarrier : MonoBehaviour
     //When the player enters the room, it activates. When they exit, it deactivates.
 
     public GameObject virtualCam;
+    public GameObject EnemiesInRoom;
 
     private void Start()
     {
         StartCoroutine(GetPlayer());
+        EnemiesInRoom.SetActive(false);
     }
 
     public IEnumerator GetPlayer()
@@ -24,6 +26,7 @@ public class RoomCamBarrier : MonoBehaviour
         if (other.CompareTag("Player") && !other.isTrigger)
         {
             virtualCam.SetActive(true);
+            EnemiesInRoom.SetActive(true);
         }
     }
 

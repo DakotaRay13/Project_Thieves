@@ -47,6 +47,7 @@ public class MainMenuManager : MonoBehaviour
     public void SelectCharacter(GameObject character)
     {
         GameManager.CHOSEN_CHARACTER = character;
+        GameManager.CHECKPOINT_REACHED = 0;
         StartCoroutine(ChangeLevel());
     }
 

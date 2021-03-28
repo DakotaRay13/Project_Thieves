@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1573a534556bd7a4ea26224039d4492f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 25
   damage: 5
 --- !u!114 &7179782674506080459
 MonoBehaviour:
@@ -143,6 +143,7 @@ MonoBehaviour:
   hitStunSpeed: -10
   accelTime: 0.1
   gravity: -500
+  direction: 1
   inHitStun: 0
   controller: {fileID: 7179782674506080459}
 --- !u!50 &7179782674506080456

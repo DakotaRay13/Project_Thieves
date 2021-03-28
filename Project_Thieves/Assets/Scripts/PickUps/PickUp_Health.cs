@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PickUp_Health : MonoBehaviour
 {
-    int healthToGive = 25;
+    int healthToGive = 15;
 
     private void Awake()
     {

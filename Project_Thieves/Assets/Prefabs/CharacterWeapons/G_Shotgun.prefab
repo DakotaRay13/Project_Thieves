@@ -49,5 +49,5 @@ MonoBehaviour:
   spreadAngle: 45
   numberOfBullets: 5
   speed: 25
-  damage: 5
+  damage: 3
   range: 5

@@ -22,11 +22,17 @@ public class GameManager : MonoBehaviour
     public LayerMask[] deathLayers;
     public GameObject deathUI;
 
+    public static int CHECKPOINT_REACHED;
+    public Checkpoint[] Checkpoints;
+
     void Start()
     {
         //Load Player
         LoadPlayer();
-        
+
+        deathUI = FindObjectOfType<DeathUI>().gameObject;
+        deathUI.SetActive(false);
+
         //Load the correct UI
         LoadPlayerUI();
     }
@@ -39,7 +45,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        Vector3 spawnPoint = GameObject.Find("SpawnPoint").transform.position;
+        Vector3 spawnPoint = GetSpawnPoint();
 
         if(CHOSEN_CHARACTER == null)
         {
@@ -98,11 +104,11 @@ public class GameManager : MonoBehaviour
         {
             //Spawn Stamina or Ammo
             Player player = FindObjectOfType<Player>();
-            if (player.name == "PlayerChar_Garrett")
+            if (player.GetComponent<Player_Garrett>())
             {
                 Instantiate(pickUp_Ammo, spawnLocation, pickUp_Ammo.transform.rotation);
             }
-            else if (player.name == "PlayerChar_Alex")
+            else if (player.GetComponent<Player_Alex>())
             {
                 Instantiate(pickUp_Stamina, spawnLocation, pickUp_Stamina.transform.rotation);
             }
@@ -131,6 +137,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public Vector3 GetSpawnPoint()
+    {
+        if(CHECKPOINT_REACHED == 0)
+        {
+            return GameObject.Find("SpawnPoint").transform.position;
+        }
+        else
+        {
+            return Checkpoints[CHECKPOINT_REACHED - 1].transform.position;
+        }
+    }
+
+    public void UpdateCheckpoint(Checkpoint newCheckpoint)
+    {
+        for (int i = 0; i < Checkpoints.Length; i++)
+        {
+            if(newCheckpoint == Checkpoints[i])
+            {
+                CHECKPOINT_REACHED = i + 1;
+                Debug.Log("Checkpoint " + i.ToString() + " reached.");
+            }
+        }
+
+        DeactivatePreviousCheckpoints();
+    }
+
+    public void DeactivatePreviousCheckpoints()
+    {
+        for (int i = 0; i < CHECKPOINT_REACHED; i++)
+        {
+            Checkpoints[i].DeactivateCheckpoint();
+        }
+    }
+
     public void Death()
     {
         FindObjectOfType<Camera>().cullingMask = deathLayers[0] + deathLayers[1];
@@ -141,7 +181,7 @@ public class GameManager : MonoBehaviour
 
     public void CreateDeathUI()
     {
-        GameObject canvas = FindObjectOfType<Canvas>().gameObject;
-        Instantiate(deathUI, canvas.transform);
+        deathUI.SetActive(true);
+        deathUI.GetComponent<DeathUI>().FirstEnable();
     }
 }

@@ -16,15 +16,25 @@ public class DeathUI : MonoBehaviour
     public void FirstEnable()
     {
         btn_Retry.Select();
+        btn_Retry.GetComponent<Animator>().SetTrigger("Selected");
     }
 
     public void RetryButton()
     {
-        Debug.Log("Retry Clicked");
+        StartCoroutine(ChangeLevel(SceneManager.GetActiveScene().name));
     }
 
     public void QuitToMenu()
     {
-        Debug.Log("Quit clicked");
+        StartCoroutine(ChangeLevel("ThanksForPlaying"));
+    }
+
+    public IEnumerator ChangeLevel(string Level)
+    {
+        GameObject.Find("ScreenTransition").GetComponent<Animator>().Play("FadeScreenOut");
+
+        yield return new WaitForSeconds(1.3f);
+
+        SceneManager.LoadScene(Level);
     }
 }

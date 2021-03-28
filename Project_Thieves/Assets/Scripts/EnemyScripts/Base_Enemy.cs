@@ -6,16 +6,33 @@ public class Base_Enemy : MonoBehaviour
 {
     public float health;
     public int damage;
+    private float damageThisFrame;
+    private bool dead = false;
+
+    private void Update()
+    {
+        StartCoroutine(ResetDamageThisFrame());
+    }
+
+    public IEnumerator ResetDamageThisFrame()
+    {
+        yield return new WaitForEndOfFrame();
+
+        damageThisFrame = 0f;
+    }
 
     public void TakeDamage(float damage)
     {
         health -= damage;
-        if(health <= 0f)
+        damageThisFrame += damage;
+
+        if(health <= 0f && !dead)
         {
+            dead = true;
             Destroy(gameObject);
             FindObjectOfType<GameManager>().DropPickUp(transform.position);
         }
-        else if (damage >= 5)
+        else if (damageThisFrame >= 5)
         {
             if(GetComponent<EnemyBehaviour>())
             {

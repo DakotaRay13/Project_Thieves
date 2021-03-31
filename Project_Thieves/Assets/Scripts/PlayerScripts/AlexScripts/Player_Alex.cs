@@ -118,10 +118,11 @@ public class Player_Alex : Player
         anim.anim.SetBool("isBlocking", false);
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int damage, float enemyPos)
     {
         if (!isBlocking && !anim.anim.GetBool("Invinsibility Frames"))
         {
+            TurnTowardsEnemy(enemyPos);
             StopAttack();
             HEALTH -= damage;
             if (HEALTH > 0f) StartCoroutine(HitStun());
@@ -130,13 +131,14 @@ public class Player_Alex : Player
         {
             if(STAMINA > 0)
             {
+                TurnTowardsEnemy(enemyPos);
                 STAMINA = Mathf.Clamp(STAMINA - (damage / 2), 0, MAX_STAMINA);
                 StartCoroutine(BlockInvinsibility());
             }
             else
             {
                 StopBlock();
-                TakeDamage(damage);
+                TakeDamage(damage, enemyPos);
             }
         }
     }

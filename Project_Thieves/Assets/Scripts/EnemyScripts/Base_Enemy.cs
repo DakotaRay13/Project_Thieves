@@ -51,7 +51,7 @@ public class Base_Enemy : MonoBehaviour
                     StartCoroutine(GetComponent<EnemyBehaviour>().HitStun(0.35f));
                 }
 
-            col.gameObject.GetComponent<Player>().TakeDamage(damage);
+            col.gameObject.GetComponent<Player>().TakeDamage(damage, transform.position.x);
         }
     }
 }

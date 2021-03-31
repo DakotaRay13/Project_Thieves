@@ -11,6 +11,8 @@ public class EnemyBehaviour : MonoBehaviour
     };
     public EnemyStates states;
 
+    public bool canPursue;
+
     public Rigidbody2D rb;
     public Transform turnCheck;
 
@@ -42,7 +44,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else
         {
-            CheckForPlayer();
+            if(canPursue) CheckForPlayer();
 
             switch (states)
             {
@@ -84,6 +86,17 @@ public class EnemyBehaviour : MonoBehaviour
     {
         direction *= -1f;
         transform.localScale = new Vector3(direction, transform.localScale.y, transform.localScale.z);
+    }
+
+    public void TurnTowardsPlayer()
+    {
+        float playerPosX = FindObjectOfType<Player>().transform.position.x;
+
+        if((playerPosX < transform.position.x && direction != -1f) || 
+            (playerPosX > transform.position.x && direction != 1f))
+        {
+            TurnEnemy();
+        }
     }
 
     public void CheckForWall()
@@ -142,6 +155,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     public IEnumerator HitStun(float time)
     {
+        TurnTowardsPlayer();
+
         inHitStun = true;
 
         yield return new WaitForSeconds(time);

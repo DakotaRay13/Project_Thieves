@@ -291,6 +291,15 @@ public abstract class Player : MonoBehaviour
 
     }
 
+    public void TurnTowardsEnemy(float ePos)
+    {
+        if ((ePos < transform.position.x && anim.direction != -1f) ||
+            (ePos > transform.position.x && anim.direction != 1f))
+        {
+            anim.TurnCharacter();
+        }
+    }
+
     public IEnumerator HitStun()
     {
         anim.anim.Play("I_Frames");
@@ -326,7 +335,7 @@ public abstract class Player : MonoBehaviour
      * BASIC ACTIONS
      ***********************************************************************/
 
-    public abstract void TakeDamage(int damage);
+    public abstract void TakeDamage(int damage, float enemyPos);
 
     public abstract void LightAttack(InputAction.CallbackContext context);
     public abstract void HeavyAttack(InputAction.CallbackContext context);

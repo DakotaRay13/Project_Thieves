@@ -163,10 +163,11 @@ public class Player_Garrett : Player
         }
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int damage, float enemyPos)
     {
         if (!isDodging && !anim.anim.GetBool("Invinsibility Frames"))
         {
+            TurnTowardsEnemy(enemyPos);
             StopAttack();
             HEALTH -= damage;
             if(HEALTH > 0f) StartCoroutine(HitStun());

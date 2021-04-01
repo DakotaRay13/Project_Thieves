@@ -315,9 +315,20 @@ public abstract class Player : MonoBehaviour
         movementLock = false;
         canAttack = true;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         anim.anim.SetBool("Invinsibility Frames", false);
+    }
+
+    public void TakeHazardDamage(int damage)
+    {
+        if(!anim.anim.GetBool("Invinsibility Frames"))
+        {
+            if (GetComponent<Player_Garrett>()) GetComponent<Player_Garrett>().StopAttack();
+            else if (GetComponent<Player_Alex>()) GetComponent<Player_Alex>().StopAttack();
+            HEALTH -= damage;
+            if (HEALTH > 0f) StartCoroutine(HitStun());
+        }
     }
 
     public void Death()

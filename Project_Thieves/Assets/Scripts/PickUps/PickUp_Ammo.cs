@@ -5,11 +5,6 @@ public class PickUp_Ammo : MonoBehaviour
 {
     int ammoToGive = 10;
 
-    private void Awake()
-    {
-        StartCoroutine(LiveTimer());
-    }
-
     public IEnumerator LiveTimer()
     {
         yield return new WaitForSeconds(60f);

@@ -91,7 +91,7 @@ MonoBehaviour:
   wasGrounded: 1
   bufferTime: 0.1
   cameraDealyTime: 0.1
-  maxJumpHeight: 4.5
+  maxJumpHeight: 5.5
   minJumpHeight: 1
   jumpTime: 0.4
   inHitStun: 0

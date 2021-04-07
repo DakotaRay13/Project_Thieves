@@ -26,7 +26,9 @@ public class Base_Enemy : MonoBehaviour
         health -= damage;
         damageThisFrame += damage;
 
-        if(health <= 0f && !dead)
+        GetComponent<EnemyBehaviour>().TurnTowardsPlayer();
+
+        if (health <= 0f && !dead)
         {
             dead = true;
             Destroy(gameObject);

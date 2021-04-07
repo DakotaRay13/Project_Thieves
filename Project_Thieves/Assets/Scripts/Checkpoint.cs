@@ -6,6 +6,7 @@ public class Checkpoint : MonoBehaviour
     {
         if(col.tag == "Player")
         {
+            Debug.Log("Player Hit Checkpoint");
             FindObjectOfType<GameManager>().UpdateCheckpoint(this);
             DeactivateCheckpoint();
         }

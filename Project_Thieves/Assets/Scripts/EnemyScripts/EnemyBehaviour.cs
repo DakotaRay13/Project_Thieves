@@ -103,7 +103,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if(controller.collisions.below || controller.collisions.grounded)
         {
-            RaycastHit2D hit = Physics2D.Raycast(turnCheck.position, Vector2.right, 0.2f, groundMask);
+            RaycastHit2D hit = Physics2D.Raycast(turnCheck.position, Vector2.right * direction, 0.2f, groundMask);
             if (hit)
             {
                 TurnEnemy();
@@ -116,7 +116,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (controller.collisions.below || controller.collisions.grounded)
         {
-            RaycastHit2D hit = Physics2D.Raycast(turnCheck.position, Vector2.down, 0.2f, groundMask);
+            RaycastHit2D hit = Physics2D.Raycast(turnCheck.position, Vector2.down, 1f, groundMask);
             if (!hit)
             {
                 TurnEnemy();
@@ -155,8 +155,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     public IEnumerator HitStun(float time)
     {
-        TurnTowardsPlayer();
-
         inHitStun = true;
 
         yield return new WaitForSeconds(time);

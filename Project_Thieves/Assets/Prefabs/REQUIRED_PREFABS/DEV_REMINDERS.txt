@@ -1,0 +1,1 @@
+Rooms are 32Wx18H tiles big

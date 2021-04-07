@@ -5,11 +5,6 @@ public class PickUp_Stamina : MonoBehaviour
 {
     int staminaToGive = 10;
 
-    private void Awake()
-    {
-        StartCoroutine(LiveTimer());
-    }
-
     public IEnumerator LiveTimer()
     {
         yield return new WaitForSeconds(60f);

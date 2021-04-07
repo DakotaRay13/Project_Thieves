@@ -50,4 +50,4 @@ MonoBehaviour:
   numberOfBullets: 1
   speed: 20
   damage: 4
-  range: 7
+  range: 14

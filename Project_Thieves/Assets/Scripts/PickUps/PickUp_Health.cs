@@ -5,11 +5,6 @@ public class PickUp_Health : MonoBehaviour
 {
     int healthToGive = 15;
 
-    private void Awake()
-    {
-        StartCoroutine(LiveTimer());
-    }
-
     public IEnumerator LiveTimer()
     {
         yield return new WaitForSeconds(60f);

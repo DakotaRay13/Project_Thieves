@@ -50,7 +50,7 @@ public class Player_Garrett : Player
                     {
                         StopAttack();
                     }
-                    currentAttack = StartCoroutine(WeaponAnim(2.5f));
+                    currentAttack = StartCoroutine(WeaponAnim(1.5f));
                     FireWeapon(equippedGun);
                 }
     }
@@ -167,10 +167,16 @@ public class Player_Garrett : Player
     {
         if (!isDodging && !anim.anim.GetBool("Invinsibility Frames"))
         {
+            GetComponentInChildren<SFX_Manager_Garrett>().PlayAudio2("hit");
             TurnTowardsEnemy(enemyPos);
             StopAttack();
             HEALTH -= damage;
             if(HEALTH > 0f) StartCoroutine(HitStun());
         }
+    }
+
+    public override void LandingSFX()
+    {
+        GetComponentInChildren<SFX_Manager_Garrett>().PlayAudio("walk");
     }
 }

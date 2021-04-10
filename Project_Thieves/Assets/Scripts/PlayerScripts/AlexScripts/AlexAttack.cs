@@ -12,5 +12,10 @@ public class AlexAttack : MonoBehaviour
         {
             col.gameObject.GetComponent<Base_Enemy>().TakeDamage(damage);
         }
+
+        else if (col.tag == "Destructable")
+        {
+            GetComponentInParent<SFX_Manager_Alex>().PlayAudio2("boom");
+        }
     }
 }

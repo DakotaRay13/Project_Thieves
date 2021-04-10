@@ -28,8 +28,14 @@ public class Base_Enemy : MonoBehaviour
 
         GetComponent<EnemyBehaviour>().TurnTowardsPlayer();
 
+        GetComponentInChildren<SFX_Manager_Enemy>().PlayAudio("hit");
+
         if (health <= 0f && !dead)
         {
+            GameObject player = FindObjectOfType<Player>().gameObject;
+            if      (player.GetComponentInChildren<SFX_Manager_Alex>())     player.GetComponentInChildren<SFX_Manager_Alex>().PlayAudio2("boom");
+            else if (player.GetComponentInChildren<SFX_Manager_Garrett>())  player.GetComponentInChildren<SFX_Manager_Garrett>().PlayAudio2("boom");
+
             dead = true;
             Destroy(gameObject);
             FindObjectOfType<GameManager>().DropPickUp(transform.position);

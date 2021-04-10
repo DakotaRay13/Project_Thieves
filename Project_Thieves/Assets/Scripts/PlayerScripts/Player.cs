@@ -122,9 +122,14 @@ public abstract class Player : MonoBehaviour
         {
             velocity.y = 0f;
         }
+
+        //Landing
+        if (!wasGrounded && controller.collisions.below == true && !isCoyoteTime)
+        {
+            LandingSFX();
+        }
         
         //start Jump
-        
         if(wasGrounded == true && controller.collisions.below == false && velocity.y < 0)
         {
             isCoyoteTime = true;
@@ -138,6 +143,9 @@ public abstract class Player : MonoBehaviour
             startJump = false;
             anim.jumping = true;
 
+            if      (GetComponent<Player_Alex>())       GetComponentInChildren<SFX_Manager_Alex>().PlayAudio2("walk");
+            else if (GetComponent<Player_Garrett>())    GetComponentInChildren<SFX_Manager_Garrett>().PlayAudio2("walk");
+
             if (bufferJump) bufferJump = false;
         }
 
@@ -149,6 +157,8 @@ public abstract class Player : MonoBehaviour
             }
             stopJump = false;
         }
+
+        
 
         //start crouch
         if(controller.collisions.below && startCrouch)
@@ -324,8 +334,16 @@ public abstract class Player : MonoBehaviour
     {
         if(!anim.anim.GetBool("Invinsibility Frames"))
         {
-            if (GetComponent<Player_Garrett>()) GetComponent<Player_Garrett>().StopAttack();
-            else if (GetComponent<Player_Alex>()) GetComponent<Player_Alex>().StopAttack();
+            if (GetComponent<Player_Garrett>())
+            {
+                GetComponent<Player_Garrett>().StopAttack();
+                GetComponentInChildren<SFX_Manager_Garrett>().PlayAudio2("hit");
+            }
+            else if (GetComponent<Player_Alex>())
+            {
+                GetComponentInChildren<SFX_Manager_Alex>().PlayAudio2("hit");
+                GetComponent<Player_Alex>().StopAttack();
+            }
             HEALTH -= damage;
             if (HEALTH > 0f) StartCoroutine(HitStun());
         }
@@ -340,6 +358,7 @@ public abstract class Player : MonoBehaviour
         controller.enabled = false;
         this.enabled = false;
         GetComponent<PlayerInput>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
     }
 
     /************************************************************************
@@ -399,4 +418,6 @@ public abstract class Player : MonoBehaviour
     }
 
     public abstract float GetTargetVelocity();
+
+    public abstract void LandingSFX();
 }

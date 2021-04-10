@@ -125,6 +125,13 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f;
             Instantiate(pauseMenu, canvas.transform);
             paused = set;
+
+            AudioSource[] audios = FindObjectsOfType<AudioSource>();
+            foreach(AudioSource source in audios)
+            {
+                source.Pause();
+            }
+
         }
 
         //Unpause the game
@@ -134,6 +141,12 @@ public class GameManager : MonoBehaviour
             Destroy(GameObject.Find("PauseMenuPanel(Clone)"));
             FindObjectOfType<Player>().SetInputToPlatforming();
             paused = set;
+
+            AudioSource[] audios = FindObjectsOfType<AudioSource>();
+            foreach (AudioSource source in audios)
+            {
+                source.UnPause();
+            }
         }
     }
 
@@ -174,6 +187,7 @@ public class GameManager : MonoBehaviour
     public void Death()
     {
         FindObjectOfType<Camera>().cullingMask = deathLayers[0] + deathLayers[1];
+        GameObject.Find("Music").GetComponent<AudioSource>().Pause();
 
         if (GameObject.Find("PlayerUI_Garrett(Clone)")) GameObject.Find("PlayerUI_Garrett(Clone)").SetActive(false);
         else if (GameObject.Find("PlayerUI_Alex(Clone)"))  GameObject.Find("PlayerUI_Alex(Clone)").SetActive(false);

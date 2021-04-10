@@ -13,6 +13,8 @@ public class MainMenuManager : MonoBehaviour
     public GameObject characterSelect;
     public GameObject howToPlayMenu;
 
+    public AudioClip boomSFX;
+
     private void Start()
     {
         BackButton();
@@ -62,6 +64,10 @@ public class MainMenuManager : MonoBehaviour
     public IEnumerator ChangeLevel()
     {
         GameObject.Find("ScreenTransition").GetComponent<Animator>().Play("FadeScreenOut");
+        AudioSource source = GameObject.Find("Music").GetComponent<AudioSource>();
+        source.loop = false;
+        source.clip = boomSFX;
+        source.Play();
 
         yield return new WaitForSeconds(1.3f);
 

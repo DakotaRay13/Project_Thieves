@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PickUp_Ammo : MonoBehaviour
 {
-    int ammoToGive = 10;
+    int ammoToGive = 5;
 
     public IEnumerator LiveTimer()
     {

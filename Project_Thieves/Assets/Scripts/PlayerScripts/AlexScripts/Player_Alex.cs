@@ -122,6 +122,7 @@ public class Player_Alex : Player
     {
         if (!isBlocking && !anim.anim.GetBool("Invinsibility Frames"))
         {
+            GetComponentInChildren<SFX_Manager_Alex>().PlayAudio2("hit");
             TurnTowardsEnemy(enemyPos);
             StopAttack();
             HEALTH -= damage;
@@ -131,6 +132,7 @@ public class Player_Alex : Player
         {
             if(STAMINA > 0)
             {
+                GetComponentInChildren<SFX_Manager_Alex>().PlayAudio2("block");
                 TurnTowardsEnemy(enemyPos);
                 STAMINA = Mathf.Clamp(STAMINA - (damage / 2), 0, MAX_STAMINA);
                 StartCoroutine(BlockInvinsibility());
@@ -150,5 +152,10 @@ public class Player_Alex : Player
         yield return new WaitForSeconds(1f);
 
         anim.anim.SetBool("Invinsibility Frames", false);
+    }
+
+    public override void LandingSFX()
+    {
+        GetComponentInChildren<SFX_Manager_Alex>().PlayAudio("walk");
     }
 }

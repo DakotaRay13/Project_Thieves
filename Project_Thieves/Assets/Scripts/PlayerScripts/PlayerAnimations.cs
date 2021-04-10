@@ -36,7 +36,7 @@ public class PlayerAnimations : MonoBehaviour
         }
 
         //if the character is grounded and moving, start the running animation
-        if(moveInput != 0 && isGrounded && !isCrouched && !isAttacking)
+        if(moveInput != 0f && isGrounded && !isCrouched && !isAttacking)
         {
             anim.SetFloat("WalkSpeed", moveInput * direction);
             if (Mathf.Abs(moveInput) < 1f)

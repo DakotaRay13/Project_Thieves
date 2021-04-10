@@ -8,12 +8,17 @@ public class EndLevel : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.tag == "Player")
+        if (col.tag == "Player")
         {
-            GameObject canvas = FindObjectOfType<Canvas>().gameObject;
-            GameObject eol = Instantiate(EndOfLevelPanel, canvas.transform);
-            eol.GetComponent<EndLevel>().nextScene = nextScene;
+            FinishLevel();
         }
+    }
+
+    public void FinishLevel()
+    {
+        GameObject canvas = FindObjectOfType<Canvas>().gameObject;
+        GameObject eol = Instantiate(EndOfLevelPanel, canvas.transform);
+        eol.GetComponent<EndLevel>().nextScene = nextScene;
     }
 
     public void LoadNextLevel()
